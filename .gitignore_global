@@ -1,9 +1,8 @@
 
-bin/
+# Compiled class file
+*.class
 
-.classpath
 
-.settings/
 
-.project
+
 
