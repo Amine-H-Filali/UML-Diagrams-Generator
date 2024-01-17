@@ -6,19 +6,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-import org.mql.java.app.models.InterfaceModel;
+import org.mql.java.app.models.UMLInterfaceModel;
 import org.mql.java.app.utils.ClassesLoader;
 
 public class InterfaceParser {
 
-	private InterfaceModel interfacee;
+	private UMLInterfaceModel interfacee;
 
 	public InterfaceParser(String projectPath, String interfaceName) {
 		this(ClassesLoader.forName(projectPath, interfaceName));
 	}
 
+
 	public InterfaceParser(Class<?> clazz) {
-		interfacee = new InterfaceModel(clazz.getName());
+		interfacee = new UMLInterfaceModel(clazz.getName());
 
 		List<Field> fields = new Vector<Field>(Arrays.asList(clazz.getDeclaredFields()));
 		List<Method> methods = new Vector<Method>(Arrays.asList(clazz.getDeclaredMethods()));
@@ -29,7 +30,7 @@ public class InterfaceParser {
 	
 	
 
-	public InterfaceModel getInterface() {
+	public UMLInterfaceModel getInterface() {
 		return interfacee;
 	}
 }

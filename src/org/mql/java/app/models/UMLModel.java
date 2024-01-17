@@ -1,10 +1,10 @@
 package org.mql.java.app.models;
 
-public abstract class Model {
+public abstract class UMLModel {
 
 	protected String name;
 
-	public Model(String name) {
+	public UMLModel(String name) {
 		this.name = name;
 	}
 

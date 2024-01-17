@@ -4,12 +4,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class InterfaceModel extends Model {
+public class UMLInterfaceModel extends UMLModel {
 
 	private List<Field> fields;
 	private List<Method> methods;
 
-	public InterfaceModel(String name) {
+	public UMLInterfaceModel(String name) {
 		super(name);
 	}
 

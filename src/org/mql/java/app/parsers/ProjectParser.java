@@ -4,8 +4,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
-import org.mql.java.app.models.PackageModel;
+
 import org.mql.java.app.models.ProjectModel;
+import org.mql.java.app.models.UMLPackageModel;
 
 public class ProjectParser {
 
@@ -17,16 +18,18 @@ public class ProjectParser {
 		project = new ProjectModel();
 		try {
 			loadPackages();
-
+			new RelationParser(project);
+			
 		} catch (NullPointerException e) {
 			System.out.println("Erreur : " + e.getMessage());
 		}
 	}
 
+
 	private void loadPackages() {
 		File src = new File(projectPath + "/bin");
 
-		List<PackageModel> packages = new Vector<PackageModel>();
+		List<UMLPackageModel> packages = new Vector<UMLPackageModel>();
 
 		for (File file : src.listFiles()) {
 			if (file.isDirectory()) {

@@ -4,23 +4,22 @@ import java.util.List;
 
 public class ProjectModel {
 
-	private List<PackageModel> packages;
+	private List<UMLPackageModel> packages;
 
 	public ProjectModel() {
 	}
 
-	public List<PackageModel> getPackages() {
+	public List<UMLPackageModel> getPackages() {
 		return packages;
 	}
 
-	public void setPackages(List<PackageModel> packages) {
+	public void setPackages(List<UMLPackageModel> packages) {
 		this.packages = packages;
 	}
-
 	@Override
 	public String toString() {
 		String out = "";
-		for (PackageModel p : packages) {
+		for (UMLPackageModel p : packages) {
 			out += p + "\n";
 		}
 
