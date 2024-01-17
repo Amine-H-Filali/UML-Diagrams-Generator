@@ -8,90 +8,75 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-import org.mql.java.app.utils.ClassesLoader;
+import org.mql.java.app.models.ClasseModel;
+
 
 public class ClassParser {
 
-	private String className;
-	private Class<?> classe;
-	private String modifiers;
-	private List<Field> fields;
-	private List<Method> methods;
-	private Class<?> superClass;
-	private List<Constructor<?>> constructors;
-	private List<Class<?>> interfaces;
-	private List<Class<?>> innerClasses;
-	private List<String> inheritanceChain;
+	private String projectPath;
+	private Class<?> clazz;
+	private ClasseModel classe;
 
-	public ClassParser(Class<?> classe) {
-		this.classe = classe;
-		this.className = classe.getName();
-		this.modifiers = Modifier.toString(classe.getModifiers());
-		this.fields = new Vector<Field>(Arrays.asList(classe.getDeclaredFields()));
-		this.superClass = classe.getSuperclass();
-		this.methods = new Vector<Method>(Arrays.asList(classe.getDeclaredMethods()));
-		this.constructors = new Vector<Constructor<?>>(Arrays.asList(classe.getDeclaredConstructors()));
-		this.interfaces = new Vector<Class<?>>(Arrays.asList(classe.getInterfaces()));
-		this.innerClasses = new Vector<Class<?>>(Arrays.asList(classe.getDeclaredClasses()));
+	public ClassParser(String projectPath, Class<?> clazz, boolean innerClasses) {
+		this.projectPath = projectPath;
+		this.clazz = clazz;
+
+		String name = clazz.getName();
+		Class<?> superClass = clazz.getSuperclass();
+		String modifiers = Modifier.toString(clazz.getModifiers());
+
+		classe = new ClasseModel(name, modifiers, superClass);
+
+		List<Field> fields = new Vector<Field>(Arrays.asList(clazz.getDeclaredFields()));
+		List<Method> methods = new Vector<Method>(Arrays.asList(clazz.getDeclaredMethods()));
+		List<Constructor<?>> constructors = new Vector<Constructor<?>>(Arrays.asList(clazz.getDeclaredConstructors()));
+		List<Class<?>> interfaces = new Vector<Class<?>>(Arrays.asList(clazz.getInterfaces()));
+
+		classe.setFields(fields);
+		classe.setMethods(methods);
+		classe.setConstructors(constructors);
+		classe.setInterfaces(interfaces);
+
 		loadInheritanceChain();
-	}
 
-	public ClassParser(String projectPath, String className) {
-		this(ClassesLoader.forName(projectPath, className));
-	}
-
-	private void loadInheritanceChain() {
-
-		inheritanceChain = new Vector<String>();
-		Class<?> current = classe;
-
-		inheritanceChain.add(className);
-
-		while (current.getSuperclass() != null) {
-			inheritanceChain.add(current.getSuperclass().getName());
-			current = current.getSuperclass();
+		if (innerClasses) {
+			loadInnerClasses();
 		}
 	}
 
-	public String getModifiers() {
-		return modifiers;
-	}
+	private void loadInnerClasses() {
+		List<ClasseModel> innerClasses = new Vector<ClasseModel>();
 
-	public Class<?> getClasse() {
+		for (Class<?> c : clazz.getDeclaredClasses()) {
+			ClassParser classParser = new ClassParser(projectPath, c, false);
+			innerClasses.add(classParser.getClasse());
+		}
+
+		classe.setInnerClasses(innerClasses);
+	
+	
+	}
+	
+	
+	
+	private void loadInheritanceChain() {
+		List<String> inheritanceChain = new Vector<String>();
+		Class<?> current = clazz;
+		
+		inheritanceChain.add(classe.getName());
+
+		while (current.getSuperclass() != null) {
+			inheritanceChain.add(current.getSuperclass().getName());
+			current = current.getSuperclass();}
+
+		classe.setInheritanceChain(inheritanceChain);
+	}
+		
+	
+	
+
+	public ClasseModel getClasse() {
 		return classe;
-	}
-
-	public List<Field> getFields() {
-		return fields;
-	}
-
-	public List<Method> getMethods() {
-		return methods;
-	}
-
-	public Class<?> getSuperClass() {
-		return superClass;
-	}
-
-	public List<Constructor<?>> getConstructors() {
-		return constructors;
-	}
-
-	public List<Class<?>> getInterfaces() {
-		return interfaces;
-	}
-
-	public List<Class<?>> getInnerClasses() {
-		return innerClasses;
-	}
-
-	public List<String> getInheritanceChain() {
-		return inheritanceChain;
-	}
-
-	@Override
-	public String toString() {
-		return "Class : " + className;
 	}
 
 }

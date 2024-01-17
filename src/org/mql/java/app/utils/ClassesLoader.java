@@ -10,6 +10,7 @@ public class ClassesLoader {
     public static Class<?> forName(String projectPath, String className) {
         try {
             Path binPath = Paths.get(projectPath, "bin");
+            
 
             try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{binPath.toUri().toURL()})) {
 				return urlClassLoader.loadClass(className);

@@ -1,28 +1,19 @@
 package org.mql.java.app.examples;
 
-import org.mql.java.app.parsers.PackageParser;
 import org.mql.java.app.parsers.ProjectParser;
 
 public class Main {
-	String projectPath = "C:/Users/AMINE-HF/Desktop/xml/UML-Diagrams-Generator";
 	
-	
+	String workspacePath = "C:/Users/AMINE-HF/eclipse-workspace/MQL/Java";
+
+	String projectName = "UML-Diagrams-Generator";
+
 	public Main() {
-		ProjectParser projectParser = new ProjectParser(projectPath);
-		System.out.println(projectParser);
+		ProjectParser projectParser = new ProjectParser(workspacePath + "/" + projectName);
+		
+		System.out.println(projectParser.getProject());
 
-		
-		PackageParser packageParser = new PackageParser(projectPath, "org.mql.java.exemple");
-		System.out.println(packageParser);
-		
-		
-
-		
 	}
-	
-	
-	
-	
 
 	public static void main(String[] args) {
 		new Main();
