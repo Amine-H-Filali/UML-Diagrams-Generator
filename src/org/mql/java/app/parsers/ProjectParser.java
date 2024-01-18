@@ -9,14 +9,15 @@ import org.mql.java.app.models.UMLPackageModel;
 
 public class ProjectParser {
 
-	private String projectPath;
+	
 	private ProjectModel project;
 
-	public ProjectParser(String projectPath) {
-		this.projectPath = projectPath;
-		
+	public ProjectParser(String projectPath) {		
 		try {
 			File dir = new File(projectPath);
+		
+	
+			
 			UMLPackageModel defaultPackage = new PackageParser(projectPath).getUmlPackage();
 			project = new ProjectModel(dir.getName(), defaultPackage);
 			
@@ -32,8 +33,6 @@ public class ProjectParser {
 		return project;
 	}
 
-	public String getProjectPath() {
-		return projectPath;
-	}
+	
 
 }

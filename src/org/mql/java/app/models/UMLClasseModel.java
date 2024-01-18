@@ -1,7 +1,5 @@
 package org.mql.java.app.models;
 
-import java.lang.reflect.Constructor;
-
 import java.util.List;
 
 public class UMLClasseModel extends UMLModel {
@@ -9,7 +7,7 @@ public class UMLClasseModel extends UMLModel {
 	private List<UMLField> fields;
 	private List<UMLMethod> methods;
 	private Class<?> superClass;
-	private List<Constructor<?>> constructors;
+	private List<UMLMethod> constructors;
 	private List<Class<?>> interfaces;
 	private List<UMLClasseModel> innerClasses;
 	private List<String> inheritanceChain;
@@ -44,11 +42,11 @@ public class UMLClasseModel extends UMLModel {
 		this.superClass = superClass;
 	}
 
-	public List<Constructor<?>> getConstructors() {
+	public List<UMLMethod> getConstructors() {
 		return constructors;
 	}
 
-	public void setConstructors(List<Constructor<?>> constructors) {
+	public void setConstructors(List<UMLMethod> constructors) {
 		this.constructors = constructors;
 	}
 
@@ -80,6 +78,10 @@ public class UMLClasseModel extends UMLModel {
 	public String toString() {
 		String out = "";
 		out += "Class " + name + "\n";
+
+		for (UMLMethod constructor : constructors) {
+			out += "\t \t" + constructor + "\n";
+		}
 
 		for (UMLField field : fields) {
 			out += "\t \t \t" + field + "\n";

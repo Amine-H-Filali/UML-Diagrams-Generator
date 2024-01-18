@@ -12,6 +12,12 @@ public class UMLMethod {
 	private boolean isFinal;
 	private List<UMLParameter> parameters;
 
+	public UMLMethod(Visibility visibility, String name) {
+		super();
+		this.visibility = visibility;
+		this.name = name;
+	}
+
 	public UMLMethod(Visibility visibility, String name, String returnType, boolean isStatic, boolean isFinal) {
 		super();
 		this.visibility = visibility;
@@ -77,11 +83,14 @@ public class UMLMethod {
 		for (int i = 0; i < parameters.size(); i++) {
 			out += parameters.get(i);
 
-			if (i < parameters.size()-1)
-				out += ",";
+			if (i < parameters.size() - 1)
+				out += ", ";
 		}
 
-		out += ") : " + returnType;
+		out += ")";
+
+		if (returnType != null)
+			out += " : " + returnType;
 
 		return out;
 	}

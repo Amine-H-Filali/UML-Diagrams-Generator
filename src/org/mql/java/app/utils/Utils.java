@@ -1,5 +1,6 @@
 package org.mql.java.app.utils;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -90,5 +91,24 @@ public class Utils {
 		}
 
 		return umlParameters;
+	}
+	
+	
+	
+	public static List<UMLMethod> getUMLConstructors(String className, Constructor<?>[] constructors) {
+		List<UMLMethod> UMLOperations = new Vector<>();
+
+		for (Constructor<?> constructor : constructors) {
+			int modifiers = constructor.getModifiers();
+
+			Visibility visibility = getVisibilityFromModifiers(modifiers);
+
+			UMLMethod umlOperation = new UMLMethod(visibility, className);
+			umlOperation.setParameters(getUMLParameters(constructor.getParameters()));
+
+			UMLOperations.add(umlOperation);
+		}
+
+		return UMLOperations;
 	}
 }

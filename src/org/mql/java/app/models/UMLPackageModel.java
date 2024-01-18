@@ -63,22 +63,22 @@ public class UMLPackageModel extends UMLModel {
 
 		
 		for (UMLClasseModel c : classes) {
-			out += "\t \t" + c + "\n";
+			out += "\t" + c + "\n";
 		}
 		for (UMLAnnotationModel a : annotations) {
-			out += "\t \t" + a + "\n";
+			out += "\t" + a + "\n";
 		}
 		for (UMLInterfaceModel i : interfaces) {
-			out += "\t \t" + i + "\n";
+			out += "\t" + i + "\n";
 		}
 		for (UMLEnumerationModel e : enumerations) {
-			out += "\t \t" + e + "\n";
+			out += "\t" + e + "\n";
 		}
 		for (UMLPackageModel p : packages) {
-			out += "\t \t" + p + "\n";
+			out += "\t" + p + "\n";
 		}
 
-		return out;
+		return out + "\n";
 	}
 
 }
