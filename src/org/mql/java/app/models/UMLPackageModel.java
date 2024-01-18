@@ -53,6 +53,7 @@ public class UMLPackageModel extends UMLModel {
 	public void setAnnotations(List<UMLAnnotationModel> annotations) {
 		this.annotations = annotations;
 	}
+	
 
 	@Override
 	public String toString() {
@@ -60,20 +61,21 @@ public class UMLPackageModel extends UMLModel {
 
 		out += "Package : " + name + "\n";
 
-		for (UMLPackageModel p : packages) {
-			out += "\t" + p + "\n";
-		}
+		
 		for (UMLClasseModel c : classes) {
-			out += "\t" + c + "\n";
+			out += "\t \t" + c + "\n";
 		}
 		for (UMLAnnotationModel a : annotations) {
-			out += "\t" + a + "\n";
+			out += "\t \t" + a + "\n";
 		}
 		for (UMLInterfaceModel i : interfaces) {
-			out += "\t" + i + "\n";
+			out += "\t \t" + i + "\n";
 		}
 		for (UMLEnumerationModel e : enumerations) {
-			out += "\t" + e + "\n";
+			out += "\t \t" + e + "\n";
+		}
+		for (UMLPackageModel p : packages) {
+			out += "\t \t" + p + "\n";
 		}
 
 		return out;

@@ -1,37 +1,47 @@
 package org.mql.java.app.models;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+
 import java.util.List;
 
 public class UMLInterfaceModel extends UMLModel {
 
-	private List<Field> fields;
-	private List<Method> methods;
+	private List<UMLField> fields;
+	private List<UMLMethod> methods;
 
 	public UMLInterfaceModel(String name) {
 		super(name);
 	}
 
-	public List<Field> getFields() {
+	public List<UMLField> getFields() {
 		return fields;
 	}
-
-	public List<Method> getMethods() {
-		return methods;
-	}
-
-	public void setFields(List<Field> fields) {
+	
+	public void setFields(List<UMLField> fields) {
 		this.fields = fields;
 	}
 
-	public void setMethods(List<Method> methods) {
+	public List<UMLMethod> getMethods() {
+		return methods;
+	}
+
+	public void setMethods(List<UMLMethod> methods) {
 		this.methods = methods;
 	}
 
 	@Override
 	public String toString() {
-		return "Interface : " + name;
+		String out = "";
+		out += "Interface " + name + "\n";
+
+		for (UMLField field : fields) {
+			out += "\t \t \t" + field + "\n";
+		}
+
+		for (UMLMethod method : methods) {
+			out += "\t \t \t" + method + "\n";
+		}
+
+		return out;
 	}
 
 }

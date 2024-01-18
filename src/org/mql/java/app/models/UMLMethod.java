@@ -9,16 +9,16 @@ public class UMLMethod {
 	private String name;
 	private String returnType;
 	private boolean isStatic;
-	private boolean isConstant;
-	private List<String> parameters;
+	private boolean isFinal;
+	private List<UMLParameter> parameters;
 
-	public UMLMethod(Visibility visibility, String name, String returnType, boolean isStatic, boolean isConstant) {
+	public UMLMethod(Visibility visibility, String name, String returnType, boolean isStatic, boolean isFinal) {
 		super();
 		this.visibility = visibility;
 		this.name = name;
 		this.returnType = returnType;
 		this.isStatic = isStatic;
-		this.isConstant = isConstant;
+		this.isFinal = isFinal;
 	}
 
 	public Visibility getVisibility() {
@@ -53,24 +53,36 @@ public class UMLMethod {
 		this.isStatic = isStatic;
 	}
 
-	public boolean isConstant() {
-		return isConstant;
+	public boolean isFinal() {
+		return isFinal;
 	}
 
-	public void setConstant(boolean isConstant) {
-		this.isConstant = isConstant;
+	public void setFinal(boolean isFinal) {
+		this.isFinal = isFinal;
 	}
 
-	public List<String> getParameters() {
+	public List<UMLParameter> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(List<String> parameters) {
+	public void setParameters(List<UMLParameter> parameters) {
 		this.parameters = parameters;
 	}
 
 	@Override
 	public String toString() {
-		return visibility + name + "(): " + returnType;
+		String out = "";
+		out += visibility.getSymbol() + " " + name + "(";
+
+		for (int i = 0; i < parameters.size(); i++) {
+			out += parameters.get(i);
+
+			if (i < parameters.size()-1)
+				out += ",";
+		}
+
+		out += ") : " + returnType;
+
+		return out;
 	}
 }

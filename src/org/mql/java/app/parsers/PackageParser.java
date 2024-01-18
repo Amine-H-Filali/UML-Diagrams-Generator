@@ -12,16 +12,26 @@ import org.mql.java.app.models.UMLPackageModel;
 
 import org.mql.java.app.utils.ClassesLoader;
 
+
 public class PackageParser {
-	private UMLPackageModel packageModel;
+	private UMLPackageModel umlPackage;
+
+	public PackageParser(String projectPath) {
+		this(projectPath, "");
+	}
 
 
 	public PackageParser(String projectPath, String packageName) {
-		packageModel = new UMLPackageModel(packageName);
+		umlPackage = new UMLPackageModel("".equals(packageName) ? "default package" : packageName);
 
 		String packagePath = packageName.replace(".", "/");
 
-		File dir = new File(projectPath + "/bin/" + packagePath);
+		String fullPath = projectPath + "/bin";
+
+		if (!"".equals(packageName))
+			fullPath += "/" + packagePath;
+
+		File dir = new File(fullPath);
 		File f[] = dir.listFiles();
 
 		List<UMLPackageModel> packages = new Vector<UMLPackageModel>();
@@ -31,9 +41,14 @@ public class PackageParser {
 		List<UMLEnumerationModel> enumerations = new Vector<UMLEnumerationModel>();
 
 		if (f != null) {
-			for (int i = 0; i < f.length; i++) {
+			for (int i = 0; i < f.length; i++) {				
 				String name = f[i].getName().replace(".class", "");
-				String fullname = packageName + "." + name;
+				String fullname = "";
+
+				if (!"".equals(packageName))
+					fullname += packageName + ".";
+
+				fullname += name;
 
 				if (f[i].isFile() && f[i].getName().endsWith(".class")) {
 
@@ -54,22 +69,22 @@ public class PackageParser {
 
 				} else if (f[i].isDirectory()) {
 
-					packages.add(new PackageParser(projectPath, fullname).getPackageM());
+					packages.add(new PackageParser(projectPath, fullname).getUmlPackage());
 				}
 			}
-			packageModel.setAnnotations(annotations);
-			packageModel.setClasses(classes);
-			packageModel.setEnumerations(enumerations);
-			packageModel.setInterfaces(interfaces);
-			packageModel.setPackages(packages);
+			umlPackage.setAnnotations(annotations);
+			umlPackage.setClasses(classes);
+			umlPackage.setEnumerations(enumerations);
+			umlPackage.setInterfaces(interfaces);
+			umlPackage.setPackages(packages);
 		}
 
 	}
 
 	
 
-	public UMLPackageModel getPackageM() {
-		return packageModel;
+	public UMLPackageModel getUmlPackage() {
+		return umlPackage;
 	}
 
 }

@@ -7,15 +7,15 @@ public class UMLField {
 	private String name;
 	private String type;
 	private boolean isStatic;
-	private boolean isConstant;
+	private boolean isFinal;
 
-	public UMLField(Visibility visibility, String name, String type, boolean isStatic, boolean isConstant) {
+	public UMLField(Visibility visibility, String name, String type, boolean isStatic, boolean isFinal) {
 		super();
 		this.visibility = visibility;
 		this.name = name;
 		this.type = type;
 		this.isStatic = isStatic;
-		this.isConstant = isConstant;
+		this.isFinal = isFinal;
 	}
 
 	public Visibility getVisibility() {
@@ -50,16 +50,16 @@ public class UMLField {
 		this.isStatic = isStatic;
 	}
 
-	public boolean isConstant() {
-		return isConstant;
+	public boolean isFinal() {
+		return isFinal;
 	}
 
-	public void setConstant(boolean isConstant) {
-		this.isConstant = isConstant;
+	public void setFinal(boolean isFinal) {
+		this.isFinal = isFinal;
 	}
 
 	@Override
 	public String toString() {
-		return visibility + name + ": " + type;
+		return visibility.getSymbol() + " " + name + " : " + type;
 	}
 }

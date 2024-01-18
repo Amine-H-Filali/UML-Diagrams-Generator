@@ -1,8 +1,7 @@
 package org.mql.java.app.parsers;
 
 import java.io.File;
-import java.util.List;
-import java.util.Vector;
+
 
 
 import org.mql.java.app.models.ProjectModel;
@@ -15,10 +14,11 @@ public class ProjectParser {
 
 	public ProjectParser(String projectPath) {
 		this.projectPath = projectPath;
-		project = new ProjectModel();
+		
 		try {
-			loadPackages();
-			new RelationParser(project);
+			File dir = new File(projectPath);
+			UMLPackageModel defaultPackage = new PackageParser(projectPath).getUmlPackage();
+			project = new ProjectModel(dir.getName(), defaultPackage);
 			
 		} catch (NullPointerException e) {
 			System.out.println("Erreur : " + e.getMessage());
@@ -26,19 +26,7 @@ public class ProjectParser {
 	}
 
 
-	private void loadPackages() {
-		File src = new File(projectPath + "/bin");
-
-		List<UMLPackageModel> packages = new Vector<UMLPackageModel>();
-
-		for (File file : src.listFiles()) {
-			if (file.isDirectory()) {
-				packages.add(new PackageParser(projectPath, file.getName()).getPackageM());
-			}
-		}
-
-		project.setPackages(packages);
-	}
+	
 
 	public ProjectModel getProject() {
 		return project;

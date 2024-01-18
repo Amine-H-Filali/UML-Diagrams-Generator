@@ -1,27 +1,44 @@
 package org.mql.java.app.models;
 
-import java.util.List;
+
 
 public class ProjectModel {
+	
+	private String name;
+	private UMLPackageModel defaultPackage;
 
-	private List<UMLPackageModel> packages;
+	
 
-	public ProjectModel() {
+	public ProjectModel(String name, UMLPackageModel defaultPackage) {
+		super();
+		this.name = name;
+		this.defaultPackage = defaultPackage;
+	}
+	
+	
+
+	public UMLPackageModel getDefaultPackage() {
+		return defaultPackage;
 	}
 
-	public List<UMLPackageModel> getPackages() {
-		return packages;
+	public void setDefaultPackage(UMLPackageModel defaultPackage) {
+		this.defaultPackage = defaultPackage;
 	}
-
-	public void setPackages(List<UMLPackageModel> packages) {
-		this.packages = packages;
+	
+	public String getName() {
+		return name;
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 	@Override
 	public String toString() {
-		String out = "";
-		for (UMLPackageModel p : packages) {
-			out += p + "\n";
-		}
+		String out = "Project : " + name + "\n";
+
+		out += "\t" + defaultPackage;
 
 		return out;
 	}
