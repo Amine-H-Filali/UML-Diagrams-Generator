@@ -1,26 +1,27 @@
 package org.mql.java.app.models;
 
 import java.util.List;
+import java.util.Vector;
 
-public class UMLPackageModel {
+public class UMLPackageModel extends UMLElement {
 
-	private String name;
-	private List<UMLModel> models;
+	private List<UMLClassifier> classifiers;
 
 	public UMLPackageModel(String name) {
-		this.name = name;
+		super(name);
+		this.classifiers = new Vector<>();
 	}
 
-	public List<UMLModel> getModels() {
-		return models;
+	public List<UMLClassifier> getClassifiers() {
+		return classifiers;
 	}
 
-	public void setModels(List<UMLModel> models) {
-		this.models = models;
+	public void addClassifier(UMLClassifier classifier) {
+		this.classifiers.add(classifier);
 	}
 
-	public String getName() {
-		return name;
+	public void setClassifiers(List<UMLClassifier> classifiers) {
+		this.classifiers = classifiers;
 	}
 
 	public void setName(String name) {
@@ -33,8 +34,8 @@ public class UMLPackageModel {
 
 		out += "Package : " + name + "\n";
 
-		for (UMLModel m : models) {
-			out += "\t" + m + "\n";
+		for (UMLClassifier c : classifiers) {
+			out += "\t" + c + "\n";
 		}
 
 		return out + "\n";

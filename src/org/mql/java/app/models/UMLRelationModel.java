@@ -5,22 +5,30 @@ import org.mql.java.app.enums.RelationType;
 public class UMLRelationModel {
 
 	
-	private UMLModel model1;
-	private UMLModel model2;
+	private UMLElement element1;
+	private UMLElement element2;
 	private RelationType type;
 
-	public UMLRelationModel(UMLModel model1, UMLModel model2, RelationType type) {		
-		this.model1 = model1;
-		this.model2 = model2;
+	public UMLRelationModel(UMLElement element1, UMLElement element2, RelationType type) {		
+		this.element1 = element1;
+		this.element2 = element2;
 		this.type = type;
 	}
 
-	public UMLModel getModel1() {
-		return model1;
+	public UMLElement getElement1() {
+		return element1;
 	}
 
-	public UMLModel getModel2() {
-		return model2;
+	public void setElement1(UMLElement element1) {
+		this.element1 = element1;
+	}
+
+	public void setElement2(UMLElement element2) {
+		this.element2 = element2;
+	}
+
+	public void setType(RelationType type) {
+		this.type = type;
 	}
 
 	public RelationType getType() {
@@ -30,7 +38,7 @@ public class UMLRelationModel {
 	@Override
 	public String toString() {
 		
-			return model1.getName() + type.getRepresentation() + model2.getName();
+		return element1.getName() + type.getRepresentation()+ element2.getName();
 		
 	}
 

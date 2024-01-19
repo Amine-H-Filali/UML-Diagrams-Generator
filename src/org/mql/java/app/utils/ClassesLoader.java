@@ -7,10 +7,11 @@ import java.nio.file.Paths;
 
 public class ClassesLoader {
 	
+	
 	private URLClassLoader loader;
 
-	public ClassesLoader(String projectPath) throws Exception {
-		Path binPath = Paths.get(projectPath, "bin");
+	public ClassesLoader(String Path) throws Exception {
+		Path binPath = Paths.get(Path, "bin");
         loader = new URLClassLoader(new URL[]{binPath.toUri().toURL()});
 	}
 	

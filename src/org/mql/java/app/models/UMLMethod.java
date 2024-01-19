@@ -10,7 +10,7 @@ public class UMLMethod {
 	private String returnType;
 	private boolean isStatic;
 	
-	private List<UMLParameter> parameters;
+	private List<UMLField> parameters;
 
 	public UMLMethod(Visibility visibility, String name) {
 		super();
@@ -62,11 +62,11 @@ public class UMLMethod {
 
 	
 
-	public List<UMLParameter> getParameters() {
+	public List<UMLField> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(List<UMLParameter> parameters) {
+	public void setParameters(List<UMLField> parameters) {
 		this.parameters = parameters;
 	}
 

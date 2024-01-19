@@ -3,16 +3,20 @@ package org.mql.java.app.examples;
 import org.mql.java.app.parsers.ProjectParser;
 
 public class Main {
-	
-	String workspacePath = "C:/Users/AMINE-HF/eclipse-workspace/MQL/Java";
-	
 
-	String projectName = "UML-Test-App";
+	String binPath = "C:/Users/AMINE-HF/eclipse-workspace/MQL/Java/UML-Test-App/bin";
 
 	public Main() {
-		ProjectParser projectParser = new ProjectParser(workspacePath + "/" + projectName);
-		
-		System.out.println(projectParser.getProject());
+
+		try {
+			ProjectParser projectParser = new ProjectParser(binPath);
+
+			System.out.println(projectParser.getProject());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 
 	}
 

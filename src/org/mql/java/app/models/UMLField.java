@@ -21,6 +21,12 @@ public class UMLField {
 		this.isStatic = isStatic;
 
 	}
+	
+	public UMLField(String name, String type) {
+		super();
+		this.name = name;
+		this.type = type;
+	}
 
 	public Visibility getVisibility() {
 		return visibility;
