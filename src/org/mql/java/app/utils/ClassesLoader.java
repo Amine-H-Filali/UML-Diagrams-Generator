@@ -6,18 +6,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ClassesLoader {
+	
+	private URLClassLoader loader;
 
-    public static Class<?> forName(String projectPath, String className) {
-        try {
-            Path binPath = Paths.get(projectPath, "bin");
-            
+	public ClassesLoader(String projectPath) throws Exception {
+		Path binPath = Paths.get(projectPath, "bin");
+        loader = new URLClassLoader(new URL[]{binPath.toUri().toURL()});
+	}
+	
 
-            try (URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{binPath.toUri().toURL()})) {
-				return urlClassLoader.loadClass(className);
-			}
-        } catch (Exception e) {
-            System.out.println("Class " + className + " not found");
-            return null;
-        }
-    }
+
+	public Class<?> loadClass(String className) throws Exception {
+		return loader.loadClass(className);
+	}
+
+   
 }

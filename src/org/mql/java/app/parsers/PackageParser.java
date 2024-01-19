@@ -4,21 +4,17 @@ import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
-import org.mql.java.app.models.UMLAnnotationModel;
-import org.mql.java.app.models.UMLClasseModel;
-import org.mql.java.app.models.UMLEnumerationModel;
-import org.mql.java.app.models.UMLInterfaceModel;
+import org.mql.java.app.models.UMLModel;
 import org.mql.java.app.models.UMLPackageModel;
 
-import org.mql.java.app.utils.ClassesLoader;
+
+
 
 
 public class PackageParser {
 	private UMLPackageModel umlPackage;
 
-	public PackageParser(String projectPath) {
-		this(projectPath, "");
-	}
+	
 
 
 	public PackageParser(String projectPath, String packageName) {
@@ -34,11 +30,7 @@ public class PackageParser {
 		File dir = new File(fullPath);
 		File f[] = dir.listFiles();
 
-		List<UMLPackageModel> packages = new Vector<UMLPackageModel>();
-		List<UMLAnnotationModel> annotations = new Vector<UMLAnnotationModel>();
-		List<UMLClasseModel> classes = new Vector<UMLClasseModel>();
-		List<UMLInterfaceModel> interfaces = new Vector<UMLInterfaceModel>();
-		List<UMLEnumerationModel> enumerations = new Vector<UMLEnumerationModel>();
+		List<UMLModel> models = new Vector<UMLModel>();
 
 		if (f != null) {
 			for (int i = 0; i < f.length; i++) {				
@@ -52,31 +44,12 @@ public class PackageParser {
 
 				if (f[i].isFile() && f[i].getName().endsWith(".class")) {
 
-					Class<?> classFile = ClassesLoader.forName(projectPath, fullname);
+					
 
-					if (classFile.isAnnotation()) {
-
-						annotations.add(new AnnotationParser(classFile).getAnnotation());
-					} else if (classFile.isInterface()) {
-						interfaces.add(new InterfaceParser(classFile).getInterface());
-					} else if (classFile.isEnum()) {
-
-						enumerations.add(new EnumParser(classFile).getEnumeration());
-
-					} else {
-						classes.add(new ClassParser(projectPath, classFile, true).getClasse());
-					}
-
-				} else if (f[i].isDirectory()) {
-
-					packages.add(new PackageParser(projectPath, fullname).getUmlPackage());
+					models.add(new ClassParser(projectPath, fullname).getModel());
 				}
 			}
-			umlPackage.setAnnotations(annotations);
-			umlPackage.setClasses(classes);
-			umlPackage.setEnumerations(enumerations);
-			umlPackage.setInterfaces(interfaces);
-			umlPackage.setPackages(packages);
+			umlPackage.setModels(models);
 		}
 
 	}

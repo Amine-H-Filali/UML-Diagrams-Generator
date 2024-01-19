@@ -9,7 +9,7 @@ public class UMLMethod {
 	private String name;
 	private String returnType;
 	private boolean isStatic;
-	private boolean isFinal;
+	
 	private List<UMLParameter> parameters;
 
 	public UMLMethod(Visibility visibility, String name) {
@@ -17,14 +17,15 @@ public class UMLMethod {
 		this.visibility = visibility;
 		this.name = name;
 	}
+	
 
-	public UMLMethod(Visibility visibility, String name, String returnType, boolean isStatic, boolean isFinal) {
+	public UMLMethod(Visibility visibility, String name, String returnType, boolean isStatic) {
 		super();
 		this.visibility = visibility;
 		this.name = name;
 		this.returnType = returnType;
 		this.isStatic = isStatic;
-		this.isFinal = isFinal;
+		
 	}
 
 	public Visibility getVisibility() {
@@ -59,13 +60,7 @@ public class UMLMethod {
 		this.isStatic = isStatic;
 	}
 
-	public boolean isFinal() {
-		return isFinal;
-	}
-
-	public void setFinal(boolean isFinal) {
-		this.isFinal = isFinal;
-	}
+	
 
 	public List<UMLParameter> getParameters() {
 		return parameters;

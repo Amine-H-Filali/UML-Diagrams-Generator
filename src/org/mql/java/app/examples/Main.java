@@ -5,8 +5,9 @@ import org.mql.java.app.parsers.ProjectParser;
 public class Main {
 	
 	String workspacePath = "C:/Users/AMINE-HF/eclipse-workspace/MQL/Java";
+	
 
-	String projectName = "UML-Diagrams-Generator";
+	String projectName = "UML-Test-App";
 
 	public Main() {
 		ProjectParser projectParser = new ProjectParser(workspacePath + "/" + projectName);

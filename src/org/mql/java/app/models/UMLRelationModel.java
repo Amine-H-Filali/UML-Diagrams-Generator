@@ -4,6 +4,7 @@ import org.mql.java.app.enums.RelationType;
 
 public class UMLRelationModel {
 
+	
 	private UMLModel model1;
 	private UMLModel model2;
 	private RelationType type;
