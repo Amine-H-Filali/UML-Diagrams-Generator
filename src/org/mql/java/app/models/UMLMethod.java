@@ -1,73 +1,28 @@
 package org.mql.java.app.models;
 
 import java.util.List;
+import java.util.Vector;
 
 import org.mql.java.app.enums.Visibility;
 
-public class UMLMethod {
-	private Visibility visibility;
-	private String name;
-	private String returnType;
-	private boolean isStatic;
-	
-	private List<UMLField> parameters;
+public class UMLMethod extends UMLPropertyMember {
+	private List<String> parameters;
 
-	public UMLMethod(Visibility visibility, String name) {
-		super();
-		this.visibility = visibility;
-		this.name = name;
-	}
-	
-
-	public UMLMethod(Visibility visibility, String name, String returnType, boolean isStatic) {
-		super();
-		this.visibility = visibility;
-		this.name = name;
-		this.returnType = returnType;
-		this.isStatic = isStatic;
-		
+	public UMLMethod(String name, Visibility visibility) {
+		this(name, visibility, null, false);
 	}
 
-	public Visibility getVisibility() {
-		return visibility;
+	public UMLMethod(String name, Visibility visibility, Class<?> type, boolean _static) {
+		super(name, visibility, type, _static);
+		parameters = new Vector<>();
 	}
 
-	public void setVisibility(Visibility visibility) {
-		this.visibility = visibility;
+	public void addParameter(String parameter) {
+		parameters.add(parameter);
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getReturnType() {
-		return returnType;
-	}
-
-	public void setReturnType(String returnType) {
-		this.returnType = returnType;
-	}
-
-	public boolean isStatic() {
-		return isStatic;
-	}
-
-	public void setStatic(boolean isStatic) {
-		this.isStatic = isStatic;
-	}
-
-	
-
-	public List<UMLField> getParameters() {
+	public List<String> getParameters() {
 		return parameters;
-	}
-
-	public void setParameters(List<UMLField> parameters) {
-		this.parameters = parameters;
 	}
 
 	@Override
@@ -84,8 +39,8 @@ public class UMLMethod {
 
 		out += ")";
 
-		if (returnType != null)
-			out += " : " + returnType;
+		if (type != null)
+			out += " : " + type;
 
 		return out;
 	}

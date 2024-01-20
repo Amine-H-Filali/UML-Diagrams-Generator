@@ -8,6 +8,7 @@ public class ProjectModel {
 	private String name;
 	private List<UMLPackageModel> packages;
 	private static ProjectModel project;
+	private List<UMLRelationModel> relations;
 
 	public static ProjectModel getInstance() {
 		if (project != null)

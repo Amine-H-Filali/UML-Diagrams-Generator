@@ -1,9 +1,9 @@
 package org.mql.java.app.models;
 
-public class UMLInterface extends UMLClassifier {
+public class UMLInterface extends UMLModel {
 
-	public UMLInterface(String name) {
-		super(name);
+	public UMLInterface(String name, String simpleName) {
+		super(name, simpleName);
 	}
 
 	@Override

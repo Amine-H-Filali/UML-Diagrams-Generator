@@ -3,25 +3,27 @@ package org.mql.java.app.models;
 import java.util.List;
 import java.util.Vector;
 
-public class UMLPackageModel extends UMLElement {
+public class UMLPackageModel {
+
+	private String name;
 
 	private List<UMLClassifier> classifiers;
 
 	public UMLPackageModel(String name) {
-		super(name);
+		this.name = name;
 		this.classifiers = new Vector<>();
 	}
 
-	public List<UMLClassifier> getClassifiers() {
-		return classifiers;
+	public String getName() {
+		return name;
 	}
 
 	public void addClassifier(UMLClassifier classifier) {
 		this.classifiers.add(classifier);
 	}
 
-	public void setClassifiers(List<UMLClassifier> classifiers) {
-		this.classifiers = classifiers;
+	public List<UMLClassifier> getClassifiers() {
+		return classifiers;
 	}
 
 	public void setName(String name) {

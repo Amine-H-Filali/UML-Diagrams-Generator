@@ -2,17 +2,17 @@ package org.mql.java.app.parsers;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Executable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
-import java.util.List;
-import java.util.Vector;
-
 
 import org.mql.java.app.enums.Visibility;
 import org.mql.java.app.models.UMLClass;
 import org.mql.java.app.models.UMLClassifier;
+import org.mql.java.app.models.UMLConstant;
 import org.mql.java.app.models.UMLEnum;
 import org.mql.java.app.models.UMLField;
 import org.mql.java.app.models.UMLInterface;
@@ -21,7 +21,7 @@ import org.mql.java.app.utils.ClassFileParser;
 import org.mql.java.app.utils.ClassesLoader;
 
 public class ClassParser implements Parser {
-	
+
 	private UMLClassifier classifier;
 	private Class<?> clazz;
 
@@ -34,71 +34,69 @@ public class ClassParser implements Parser {
 
 		if (modifiersString.contains("public")) {
 			return Visibility.PUBLIC;
-		}
-		else if (modifiersString.contains("private")) {
+		} else if (modifiersString.contains("private")) {
 			return Visibility.PRIVATE;
-		}
-		else if (modifiersString.contains("protected")) {
+		} else if (modifiersString.contains("protected")) {
 			return Visibility.PROTECTED;
-		}
-		else {
+		} else {
 			return Visibility.PACKAGE;
 		}
 	}
 
 	private boolean isAbstract(int modifiers) {
-		String modifiersString = Modifier.toString(modifiers);
-		return modifiersString.contains("abstract");
+		return Modifier.toString(modifiers).contains("abstract");
 	}
 
 	private boolean isStatic(int modifiers) {
-		String modifiersString = Modifier.toString(modifiers);
-		return modifiersString.contains("static");
+		return Modifier.toString(modifiers).contains("static");
+	}
+
+	private void loadUMLProperty(Member member) {
+		int modifiers = member.getModifiers();
+		Visibility visibility = getVisibility(modifiers);
+		String name = member instanceof Constructor ? clazz.getSimpleName() : member.getName();
+
+		if (member instanceof Field) {
+			Class<?> type = ((Field) member).getType();
+			classifier.addUMLEntity(new UMLField(name, visibility, type, isStatic(modifiers)));
+		} else {
+			UMLMethod umlOperation;
+			if (member instanceof Constructor) {
+				umlOperation = new UMLMethod(name, visibility);
+			} else {
+				Class<?> type = ((Method) member).getReturnType();
+				umlOperation = new UMLMethod(name, visibility, type, isStatic(modifiers));
+			}
+
+			for (Parameter p : ((Executable) member).getParameters()) {
+				umlOperation.addParameter(p.getType().getSimpleName());
+			}
+			classifier.addUMLEntity(umlOperation);
+		}
+	}
+
+	private void loadUMLOperations() {
+		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
+
+			loadUMLProperty(constructor);
+		}
+
+		for (Method method : clazz.getDeclaredMethods()) {
+
+			loadUMLProperty(method);
+		}
 	}
 
 	private void loadUMLAttributes() {
 		for (Field field : clazz.getDeclaredFields()) {
-			int modifiers = field.getModifiers();
-
-			Visibility visibility = getVisibility(modifiers);
-			String name = field.getName();
-			String type = field.getType().getSimpleName();
-
-			classifier.addUMLAttribute(new UMLField(visibility, name, type, isStatic(modifiers)));
+			loadUMLProperty(field);
 		}
 	}
 
-	private void loadUMLOperations() {		
-		for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
-			Visibility visibility = getVisibility(constructor.getModifiers());
-
-			UMLMethod umlOperation = new UMLMethod(visibility, clazz.getSimpleName());
-			umlOperation.setParameters(getUMLParameters(constructor.getParameters()));
-
-			classifier.addUMLOperation(umlOperation);
+	private void loadUMLConstants() {
+		for (Object constant : clazz.getEnumConstants()) {
+			classifier.addUMLEntity(new UMLConstant(constant.toString()));
 		}
-
-		for (Method method : clazz.getDeclaredMethods()) {
-			int modifiers = method.getModifiers();
-			Visibility visibility = getVisibility(modifiers);
-			String name = method.getName();
-			String type = method.getReturnType().getSimpleName();
-
-			UMLMethod umlOperation = new UMLMethod(visibility, name, type, isStatic(modifiers));
-			umlOperation.setParameters(getUMLParameters(method.getParameters()));
-
-			classifier.addUMLOperation(umlOperation);
-		}		
-	}
-
-	private List<UMLField> getUMLParameters(Parameter[] parameters) {
-		List<UMLField> umlParameters = new Vector<>();
-
-		for (Parameter p : parameters) {
-			umlParameters.add(new UMLField(p.getName(), p.getType().getName()));
-		}
-
-		return umlParameters;
 	}
 
 	public UMLClassifier getClassifier() {
@@ -112,22 +110,25 @@ public class ClassParser implements Parser {
 
 		try {
 			ClassesLoader loader = new ClassesLoader(binPath);
-			clazz = loader.loadClass(classifierName);	
+			clazz = loader.loadClass(classifierName);
+
+			if (clazz.isInterface()) {
+				classifier = new UMLInterface(clazz.getName(), clazz.getSimpleName());
+			} else if (clazz.isEnum()) {
+				classifier = new UMLEnum(clazz.getName(), clazz.getSimpleName());
+			} else {
+				classifier = new UMLClass(clazz.getName(), clazz.getSimpleName(), isAbstract(clazz.getModifiers()));
+			}
+
+			if (!(classifier instanceof UMLEnum)) {
+				loadUMLAttributes();
+				loadUMLOperations();
+			} else {
+				loadUMLConstants();
+			}
 		} catch (Exception e) {
 			throw e;
 		}
 
-		if (clazz.isInterface()) {
-			classifier = new UMLInterface(clazz.getSimpleName());
-		}
-		else if (clazz.isEnum()) {
-			classifier = new UMLEnum(clazz.getSimpleName());
-		}
-		else {
-			classifier = new UMLClass(clazz.getSimpleName(), isAbstract(clazz.getModifiers()));
-		}
-
-		loadUMLAttributes();
-		loadUMLOperations();
 	}
 }
