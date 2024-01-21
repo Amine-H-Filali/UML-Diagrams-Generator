@@ -21,6 +21,7 @@ public class ProjectModel {
 		super();
 
 		this.packages = new Vector<>();
+		this.relations = new Vector<>();
 	}
 
 	public String getName() {
@@ -39,8 +40,8 @@ public class ProjectModel {
 		return packages;
 	}
 
-	public void setPackages(List<UMLPackageModel> packages) {
-		this.packages = packages;
+	public List<UMLRelationModel> getRelations() {
+		return relations;
 	}
 
 	@Override

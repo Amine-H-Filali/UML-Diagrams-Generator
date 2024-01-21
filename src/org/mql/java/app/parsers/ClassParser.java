@@ -58,14 +58,14 @@ public class ClassParser implements Parser {
 
 		if (member instanceof Field) {
 			Class<?> type = ((Field) member).getType();
-			classifier.addUMLEntity(new UMLField(name, visibility, type, isStatic(modifiers)));
+			classifier.addUMLEntity(new UMLField(name, visibility, type, isStatic(modifiers), isFinal(modifiers)));
 		} else {
 			UMLMethod umlOperation;
 			if (member instanceof Constructor) {
 				umlOperation = new UMLMethod(name, visibility);
 			} else {
 				Class<?> type = ((Method) member).getReturnType();
-				umlOperation = new UMLMethod(name, visibility, type, isStatic(modifiers));
+				umlOperation = new UMLMethod(name, visibility, type, isStatic(modifiers), isFinal(modifiers));
 			}
 
 			for (Parameter p : ((Executable) member).getParameters()) {
@@ -101,6 +101,10 @@ public class ClassParser implements Parser {
 
 	public UMLClassifier getClassifier() {
 		return classifier;
+	}
+
+	private boolean isFinal(int modifiers) {
+		return Modifier.toString(modifiers).contains("final");
 	}
 
 	@Override

@@ -5,8 +5,8 @@ import org.mql.java.app.enums.Visibility;
 public class UMLField extends UMLPropertyMember{
 	
 
-	public UMLField(String name, Visibility visibility, Class<?> type, boolean _static) {
-		super(name, visibility, type, _static);
+	public UMLField(String name, Visibility visibility, Class<?> type, boolean _static, boolean _final) {
+		super(name, visibility, type, _static, _final);
 	}
 
 	@Override

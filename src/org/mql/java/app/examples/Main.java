@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
+import org.mql.java.app.dom.ProjectXmlParser;
+import org.mql.java.app.models.ProjectModel;
 import org.mql.java.app.parsers.ProjectParser;
 import org.mql.java.app.ui.umldiagram.JProject;
 
@@ -41,13 +43,15 @@ public class Main extends JFrame{
 	
 	void exp02(String binPath) {
 		try {
-			ProjectParser projectParser = new ProjectParser(binPath);
+			new ProjectParser(binPath);
 
-			JProject jProject = new JProject(projectParser.getProject());
+			new ProjectXmlParser();
+
+			JProject jProject = new JProject(ProjectModel.getInstance());
 			JScrollPane panelPane = new JScrollPane();
 			panelPane.getViewport().add((JPanel) jProject.draw());
 
-			panelPane.setSize(new Dimension(1000, 1000));
+			//panelPane.setSize(new Dimension(1000, 1000));
 
 			setContentPane(panelPane);
 

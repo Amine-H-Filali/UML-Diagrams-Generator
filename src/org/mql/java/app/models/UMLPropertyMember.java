@@ -7,12 +7,14 @@ public abstract class UMLPropertyMember extends UMLEntity {
 	protected Visibility visibility;
 	protected Class<?> type;
 	protected boolean _static;
+	protected boolean _final;
 
-	public UMLPropertyMember(String name, Visibility visibility, Class<?> type, boolean _static) {
+	public UMLPropertyMember(String name, Visibility visibility, Class<?> type, boolean _static, boolean _final) {
 		super(name);
 		this.visibility = visibility;
 		this.type = type;
 		this._static = _static;
+		this._final = _final;
 	}
 
 	public Visibility getVisibility() {
@@ -43,8 +45,8 @@ public abstract class UMLPropertyMember extends UMLEntity {
 		return _static;
 	}
 
-	public void set_static(boolean _static) {
-		this._static = _static;
+	public boolean isFinal() {
+		return _final;
 	}
 
 }

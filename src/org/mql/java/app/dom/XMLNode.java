@@ -1,9 +1,15 @@
 package org.mql.java.app.dom;
 
+import java.io.File;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -25,13 +31,34 @@ public class XMLNode {
 		this.node = node;
 	}
 
-	public XMLNode(String source) {
+	
+	
+	
+	
+	public XMLNode(String name) {
+		try {
+			if (document == null) {
+				DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+				DocumentBuilder builder = factory.newDocumentBuilder();
+				document = builder.newDocument();
+			}
+
+			this.node = document.createElement(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public XMLNode() {
+		String source = "";
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			document = builder.parse(source);
 		 	node = document.getFirstChild();
-
+		 			 	
 		 	while (node.getNodeType() != Node.ELEMENT_NODE) {
 		 		node = node.getNextSibling();
 		 	}
@@ -65,10 +92,19 @@ public class XMLNode {
 	}
 
 	public String getValue() {
-		if (node.getNodeType() == Node.ELEMENT_NODE) {
-			return node.getFirstChild().getNodeValue();
+		
+		if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
+			return node.getNodeValue();
 		}
-		return node.getNodeValue();
+		else if (node.getNodeType() == Node.ELEMENT_NODE) {
+			if (node.getFirstChild() != null || node.getFirstChild().getNodeValue() != null)
+				return node.getFirstChild().getNodeValue();
+
+			return null;
+		}
+		
+
+		return null;
 	}
 
 	public String getName() {
@@ -135,5 +171,27 @@ public class XMLNode {
 
 	public Document getDocument() {
 		return document;
+	}
+	
+	
+	
+	public void persist() throws Exception {
+		 String resourcesPath = "resources/";
+
+		    
+		    String filePath = resourcesPath + "project.xml";
+
+		File file = new File(filePath);
+
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+
+		Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+		StreamResult result = new StreamResult(file);
+		DOMSource source = new DOMSource(node);
+		transformer.transform(source, result);
 	}
 }
