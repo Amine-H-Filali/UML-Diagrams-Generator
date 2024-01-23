@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.List;
+import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -23,6 +25,7 @@ public class JUMLPackage extends BoxPanel implements Movable {
 	private static final long serialVersionUID = 1L;
 
 	private UMLPackageModel umlPackage;
+	private List<JUMLClass> jumlClassifiers;
 
 	private JPanel titlePanel;
 	private JPanel classifiersPanel;
@@ -73,6 +76,13 @@ public class JUMLPackage extends BoxPanel implements Movable {
 
 	public JUMLPackage(UMLPackageModel umlPackage) {
 		this.umlPackage = umlPackage;
+		jumlClassifiers = new Vector<>();
+
+		setOpaque(false);
+		drawTitle(4);
+		drawClassifiers(15);
+
+		setSize(getPreferredSize());
 		
 
 		addMouseListener(new CustomMouseListener());
@@ -89,9 +99,10 @@ public class JUMLPackage extends BoxPanel implements Movable {
 
 		for (UMLClassifier classifier : umlPackage.getClassifiers()) {
 			JUMLClass jumlClassifier = new JUMLClass(classifier);
-			JPanel classifierPanel = (JPanel) jumlClassifier.draw();
-			classifierPanel.setLocation(10, 10);
-			classifiersPanel.add(classifierPanel);
+			jumlClassifier.setLocation(10, 10);
+			classifiersPanel.add(jumlClassifier);
+
+			jumlClassifiers.add(jumlClassifier);
 		}
 
 		classifiersPanel.setSize(600, 200);
@@ -116,15 +127,8 @@ public class JUMLPackage extends BoxPanel implements Movable {
 		add(titlePanel);
 	}
 
-	@Override
-	public Object draw() {
-		setOpaque(false);
-		drawTitle(4);
-		drawClassifiers(15);
-
-		setSize(getPreferredSize());
-
-		return this;
+	public List<JUMLClass> getJumlClassifiers() {
+		return jumlClassifiers;
 	}
 
 	@Override

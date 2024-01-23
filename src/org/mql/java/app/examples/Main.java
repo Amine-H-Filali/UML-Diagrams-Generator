@@ -2,66 +2,71 @@ package org.mql.java.app.examples;
 
 import java.awt.Dimension;
 
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
 
 import org.mql.java.app.dom.ProjectXmlParser;
 import org.mql.java.app.models.ProjectModel;
 import org.mql.java.app.parsers.ProjectParser;
 import org.mql.java.app.ui.umldiagram.JProject;
 
-public class Main extends JFrame{
+
+public class Main extends JFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	String binPath = "C:/Users/AMINE-HF/eclipse-workspace/MQL/Java/UML-Test-App/bin";
+	
+	String binPath2="C:\\Users\\AMINE-HF\\Desktop\\xml\\UML-Diagrams-Generator\\bin";
+	private ProjectModel project;
 
 	public Main() {
-		/*try {UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
-		} catch(Exception e) {
-
-		}*/
 		exp02(binPath);
+
 	}
-	
-	
-	
+
+	private void drawProject() {
+		if (project != null) {
+			JScrollPane panelPane = new JScrollPane(new JProject(project));
+			setContentPane(panelPane);
+		}
+	}
+
 	void exp01(String binPath) {
 		try {
 			ProjectParser projectParser = new ProjectParser(binPath);
-			System.out.println(projectParser.getProject().toString());
+			System.out.println(projectParser.getProject());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	void exp02(String binPath) {
 		try {
-			new ProjectParser(binPath);
+			ProjectParser projectParser = new ProjectParser(binPath);
+			project = projectParser.getProject();
 
-			new ProjectXmlParser();
+			ProjectXmlParser projectDOMParser = new ProjectXmlParser();
+			// projectDOMParser.parse(new File("bin/project-dom.xml"));
+			// Project project = projectDOMParser.getProject();
+			projectDOMParser.persist();
 
-			JProject jProject = new JProject(ProjectModel.getInstance());
-			JScrollPane panelPane = new JScrollPane();
-			panelPane.getViewport().add((JPanel) jProject.draw());
+			// panelPane.setSize(new Dimension(1000, 1000));
 
-			//panelPane.setSize(new Dimension(1000, 1000));
-
-			setContentPane(panelPane);
+			drawProject();
 
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setLocationRelativeTo(null);
 			setSize(new Dimension(800, 580));
-			//setExtendedState(JFrame.MAXIMIZED_BOTH);
+			// setExtendedState(JFrame.MAXIMIZED_BOTH);
 			setVisible(true);
 		} catch (Exception e) {
-			System.out.println("Erreur : "+e.getMessage());
+			 e.printStackTrace();
 		}
 
 	}

@@ -58,14 +58,14 @@ public class ClassParser implements Parser {
 
 		if (member instanceof Field) {
 			Class<?> type = ((Field) member).getType();
-			classifier.addUMLEntity(new UMLField(name, visibility, type, isStatic(modifiers), isFinal(modifiers)));
+			classifier.addUMLEntity(new UMLField(name, visibility, type.getName(), type.getSimpleName(), isStatic(modifiers), isFinal(modifiers)));
 		} else {
 			UMLMethod umlOperation;
 			if (member instanceof Constructor) {
 				umlOperation = new UMLMethod(name, visibility);
 			} else {
 				Class<?> type = ((Method) member).getReturnType();
-				umlOperation = new UMLMethod(name, visibility, type, isStatic(modifiers), isFinal(modifiers));
+				umlOperation = new UMLMethod(name, visibility, type.getName(), type.getSimpleName(), isStatic(modifiers), isFinal(modifiers), false);
 			}
 
 			for (Parameter p : ((Executable) member).getParameters()) {
@@ -115,13 +115,17 @@ public class ClassParser implements Parser {
 		try {
 			ClassesLoader loader = new ClassesLoader(binPath);
 			clazz = loader.loadClass(classifierName);
+			String motherModelName = clazz.getSuperclass() != null ? clazz.getSuperclass().getName() : "";
 
 			if (clazz.isInterface()) {
-				classifier = new UMLInterface(clazz.getName(), clazz.getSimpleName());
+				classifier = new UMLInterface(clazz.getName(), clazz.getSimpleName(), motherModelName);
 			} else if (clazz.isEnum()) {
 				classifier = new UMLEnum(clazz.getName(), clazz.getSimpleName());
 			} else {
-				classifier = new UMLClass(clazz.getName(), clazz.getSimpleName(), isAbstract(clazz.getModifiers()));
+				classifier = new UMLClass(clazz.getName(), clazz.getSimpleName(), isAbstract(clazz.getModifiers()), motherModelName);
+				for (Class<?> interfaceClass : clazz.getInterfaces()) {
+					((UMLClass) classifier).addImplementedInterface(interfaceClass.getName());
+				}
 			}
 
 			if (!(classifier instanceof UMLEnum)) {

@@ -11,14 +11,14 @@ public class UMLMethod extends UMLPropertyMember {
 
 	public UMLMethod(String name, Visibility visibility) {
 		
-		this(name, visibility, null, false, false);
-		_constructor = true;
+		this(name, visibility, null, null, false, false, true);
 	}
 
-	public UMLMethod(String name, Visibility visibility, Class<?> type, boolean _static, boolean _final) {
-		super(name, visibility, type, _static, _final);
+	public UMLMethod(String name, Visibility visibility, String type, String simpleType, boolean _static, boolean _final, boolean _constructor) {
+		super(name, visibility, type, simpleType, _static, _final);
 		parameters = new Vector<>();
-		_constructor = false;
+		
+		this._constructor = _constructor;
 	}
 
 	public void addParameter(String parameter) {

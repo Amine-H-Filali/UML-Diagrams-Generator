@@ -5,16 +5,18 @@ import org.mql.java.app.enums.Visibility;
 public abstract class UMLPropertyMember extends UMLEntity {
 
 	protected Visibility visibility;
-	protected Class<?> type;
+	protected String type;
+	protected String simpleType;
 	protected boolean _static;
 	protected boolean _final;
 
-	public UMLPropertyMember(String name, Visibility visibility, Class<?> type, boolean _static, boolean _final) {
+	public UMLPropertyMember(String name, Visibility visibility, String type, String simpleType, boolean _static, boolean _final) {
 		super(name);
 		this.visibility = visibility;
 		this.type = type;
 		this._static = _static;
 		this._final = _final;
+		this.simpleType = simpleType;
 	}
 
 	public Visibility getVisibility() {
@@ -26,19 +28,13 @@ public abstract class UMLPropertyMember extends UMLEntity {
 	}
 
 	public String getSimpleType() {
-		if (type != null)
-			return type.getSimpleName();
-		return null;
+		return simpleType;
 	}
 
-	public Class<?> getType() {
-		if (type != null)
-			return type;
-		return null;
-	}
+	
 
-	public void setType(Class<?> type) {
-		this.type = type;
+	public String getType() {
+		return type;
 	}
 
 	public boolean isStatic() {

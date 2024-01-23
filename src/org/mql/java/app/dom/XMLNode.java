@@ -31,37 +31,22 @@ public class XMLNode {
 		this.node = node;
 	}
 
-	
-	
-	
-	
 	public XMLNode(String name) {
-		try {
-			if (document == null) {
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
-				DocumentBuilder builder = factory.newDocumentBuilder();
-				document = builder.newDocument();
-			}
-
-			this.node = document.createElement(name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.node = this.document.createElement(name);
 	}
-	
-	public XMLNode() {
-		String source = "";
+
+	public XMLNode(File source) {
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
 
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			document = builder.parse(source);
-		 	node = document.getFirstChild();
-		 			 	
-		 	while (node.getNodeType() != Node.ELEMENT_NODE) {
-		 		node = node.getNextSibling();
-		 	}
+			node = document.getFirstChild();
+
+			while (node.getNodeType() != Node.ELEMENT_NODE) {
+				node = node.getNextSibling();
+			}
 		} catch (Exception e) {
 			System.out.println("Erreur : " + e.getMessage());
 		}
@@ -70,39 +55,37 @@ public class XMLNode {
 	public XMLNode[] getChildren() {
 		Vector<XMLNode> nodes = new Vector<XMLNode>();
 
-	 	NodeList list = node.getChildNodes();
-	 	for (int i = 0; i < list.getLength(); i++) {
-	 		if (list.item(i).getNodeType() == Node.ELEMENT_NODE) {
-	 			nodes.add(new XMLNode(list.item(i), document));
-	 		}
+		NodeList list = node.getChildNodes();
+		for (int i = 0; i < list.getLength(); i++) {
+			if (list.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				nodes.add(new XMLNode(list.item(i), document));
+			}
 		}
 
-	 	return nodes.toArray(new XMLNode[nodes.size()]);
+		return nodes.toArray(new XMLNode[nodes.size()]);
 	}
 
-	public XMLNode getChild(String name) {		
-	 	NodeList list = node.getChildNodes();
-	 	for (int i = 0; i < list.getLength(); i++) {
-	 		if (list.item(i).getNodeName().equals(name)) {
-	 			return new XMLNode(list.item(i), document);
-	 		}
+	public XMLNode getChild(String name) {
+		NodeList list = node.getChildNodes();
+		for (int i = 0; i < list.getLength(); i++) {
+			if (list.item(i).getNodeName().equals(name)) {
+				return new XMLNode(list.item(i), document);
+			}
 		}
 
-	 	return null;
+		return null;
 	}
 
 	public String getValue() {
-		
+
 		if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
 			return node.getNodeValue();
-		}
-		else if (node.getNodeType() == Node.ELEMENT_NODE) {
+		} else if (node.getNodeType() == Node.ELEMENT_NODE) {
 			if (node.getFirstChild() != null || node.getFirstChild().getNodeValue() != null)
 				return node.getFirstChild().getNodeValue();
 
 			return null;
 		}
-		
 
 		return null;
 	}
@@ -117,14 +100,22 @@ public class XMLNode {
 
 	public String getAttribute(String name) {
 		NamedNodeMap atts = node.getAttributes();
+		if (atts.getNamedItem(name) == null)
+			return null;
 		return atts.getNamedItem(name).getNodeValue();
+	}
+
+	public boolean getBooleanAttribute(String name) {
+		NamedNodeMap atts = node.getAttributes();
+		String value = atts.getNamedItem(name).getNodeValue();
+		return value.equals("true");
 	}
 
 	public int getIntAttribute(String name) {
 		NamedNodeMap atts = node.getAttributes();
 		try {
 			return Integer.parseInt(atts.getNamedItem(name).getNodeValue());
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return -1;
 		}
 	}
@@ -137,8 +128,8 @@ public class XMLNode {
 		node.removeChild(oldNode.node);
 	}
 
-	public XMLNode childWithAttribute(String name, String value) {		
-		for(XMLNode child : getChildren()) {
+	public XMLNode childWithAttribute(String name, String value) {
+		for (XMLNode child : getChildren()) {
 			Node attribute = child.node.getAttributes().getNamedItem(name);
 
 			if (attribute != null && attribute.getNodeValue().equals(value)) {
@@ -152,7 +143,7 @@ public class XMLNode {
 	public void setAttribute(String name, String value) {
 		Node attribute = node.getAttributes().getNamedItem(name);
 
-		if(attribute != null) {
+		if (attribute != null) {
 			attribute.setNodeValue(value);
 		} else {
 			Node attributeNode = document.createAttribute(name);
@@ -161,7 +152,7 @@ public class XMLNode {
 		}
 	}
 
-	public void setValue(String value) {		
+	public void setValue(String value) {
 		node.appendChild(document.createTextNode(value));
 	}
 
@@ -172,16 +163,9 @@ public class XMLNode {
 	public Document getDocument() {
 		return document;
 	}
-	
-	
-	
-	public void persist() throws Exception {
-		 String resourcesPath = "resources/";
 
-		    
-		    String filePath = resourcesPath + "project.xml";
-
-		File file = new File(filePath);
+	public void persist(String path) throws Exception {
+		File file = new File(path);
 
 		if (!file.exists()) {
 			file.createNewFile();
@@ -189,9 +173,9 @@ public class XMLNode {
 
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
 		StreamResult result = new StreamResult(file);
 		DOMSource source = new DOMSource(node);
 		transformer.transform(source, result);
 	}
+
 }

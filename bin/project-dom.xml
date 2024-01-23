@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="C:\Users\AMINE-HF\eclipse-workspace\MQL\Java\UML-Test-App\bin">
+    <packages>
+        <package name="org.mql.java.exemple.enums">
+            <enumeration name="org.mql.java.exemple.enums.Color" simple-name="Color">
+                <constant value="RED"/>
+                <constant value="GREEN"/>
+                <constant value="BLUE"/>
+                <constant value="YELLOW"/>
+                <constant value="BROWN"/>
+            </enumeration>
+        </package>
+        <package name="org.mql.java.exemple.annotations">
+            <interface name="org.mql.java.exemple.annotations.PetAnnotation" simple-name="PetAnnotation">
+                <operations>
+                    <operation constructor="false" final="false" name="value" simple-type="String" static="false" type="java.lang.String" visibility="PUBLIC"/>
+                </operations>
+            </interface>
+        </package>
+        <package name="org.mql.java.exemple.models">
+            <class abstract="true" name="org.mql.java.exemple.models.Animal" simple-name="Animal">
+                <attributes>
+                    <attribute final="false" name="name" simple-type="String" static="false" type="java.lang.String" visibility="PRIVATE"/>
+                    <attribute final="false" name="color" simple-type="Color" static="false" type="org.mql.java.exemple.enums.Color" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Animal" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="Color"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="getName" simple-type="String" static="false" type="java.lang.String" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="getColor" simple-type="Color" static="false" type="org.mql.java.exemple.enums.Color" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="makeSound" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </class>
+            <class abstract="true" name="org.mql.java.exemple.models.Bird" simple-name="Bird">
+                <attributes>
+                    <attribute final="false" name="canFly" simple-type="boolean" static="false" type="boolean" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Bird" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="boolean"/>
+                            <parameter type="Color"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="move" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="fly" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="canFly" simple-type="boolean" static="false" type="boolean" visibility="PUBLIC"/>
+                </operations>
+            </class>
+            <class abstract="false" name="org.mql.java.exemple.models.Dog" simple-name="Dog">
+                <attributes>
+                    <attribute final="false" name="breed" simple-type="String" static="false" type="java.lang.String" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Dog" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="int"/>
+                            <parameter type="String"/>
+                            <parameter type="Color"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="getBreed" simple-type="String" static="false" type="java.lang.String" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="makeSound" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="giveBirth" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </class>
+            <class abstract="false" name="org.mql.java.exemple.models.Eagle" simple-name="Eagle">
+                <attributes>
+                    <attribute final="false" name="wingspan" simple-type="double" static="false" type="double" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Eagle" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="boolean"/>
+                            <parameter type="double"/>
+                            <parameter type="Color"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="getWingspan" simple-type="double" static="false" type="double" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="makeSound" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="fly" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </class>
+            <class abstract="false" name="org.mql.java.exemple.models.Fish" simple-name="Fish">
+                <attributes>
+                    <attribute final="false" name="habitat" simple-type="String" static="false" type="java.lang.String" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Fish" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="String"/>
+                            <parameter type="Color"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="move" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="getHabitat" simple-type="String" static="false" type="java.lang.String" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="swim" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="makeSound" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </class>
+            <class abstract="true" name="org.mql.java.exemple.models.Mammal" simple-name="Mammal">
+                <attributes>
+                    <attribute final="false" name="numberOfLegs" simple-type="int" static="false" type="int" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Mammal" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="int"/>
+                            <parameter type="Color"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="move" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="getNumberOfLegs" simple-type="int" static="false" type="int" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="giveBirth" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </class>
+            <interface name="org.mql.java.exemple.models.Moveable" simple-name="Moveable">
+                <operations>
+                    <operation constructor="false" final="false" name="move" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </interface>
+            <class abstract="false" name="org.mql.java.exemple.models.Person" simple-name="Person">
+                <attributes>
+                    <attribute final="false" name="name" simple-type="String" static="false" type="java.lang.String" visibility="PRIVATE"/>
+                    <attribute final="false" name="age" simple-type="int" static="false" type="int" visibility="PRIVATE"/>
+                </attributes>
+                <operations>
+                    <operation constructor="true" final="false" name="Person" static="false" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String"/>
+                            <parameter type="int"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="getAge" simple-type="int" static="false" type="int" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="ownPet" simple-type="void" static="false" type="void" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="Animal"/>
+                        </parameters>
+                    </operation>
+                </operations>
+            </class>
+            <interface name="org.mql.java.exemple.models.SoundProducible" simple-name="SoundProducible">
+                <operations>
+                    <operation constructor="false" final="false" name="makeSound" simple-type="void" static="false" type="void" visibility="PUBLIC"/>
+                </operations>
+            </interface>
+        </package>
+        <package name="org.mql.java.exemple.tests">
+            <class abstract="false" name="org.mql.java.exemple.tests.Examples" simple-name="Examples">
+                <operations>
+                    <operation constructor="true" final="false" name="Examples" static="false" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="main" simple-type="void" static="true" type="void" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="String[]"/>
+                        </parameters>
+                    </operation>
+                    <operation constructor="false" final="false" name="exp01" simple-type="void" static="false" type="void" visibility="PACKAGE"/>
+                </operations>
+            </class>
+            <class abstract="false" name="org.mql.java.exemple.tests.Print" simple-name="Print">
+                <operations>
+                    <operation constructor="true" final="false" name="Print" static="false" visibility="PUBLIC"/>
+                    <operation constructor="false" final="false" name="printDetails" simple-type="void" static="true" type="void" visibility="PUBLIC">
+                        <parameters>
+                            <parameter type="Animal"/>
+                        </parameters>
+                    </operation>
+                </operations>
+            </class>
+        </package>
+    </packages>
+    <relations/>
+</project>

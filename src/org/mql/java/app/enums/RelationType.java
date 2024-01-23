@@ -3,12 +3,12 @@ package org.mql.java.app.enums;
 public enum RelationType {
 	
 	
-	ASSOCIATION("_____"),
-	INHERITANCE("___|>"),
-	REALIZATION("---|>"),
-	DEPENDENCY("----->"),
-	AGGREGATION("---<>"),
-	COMPOSITION("----*");
+	ASSOCIATION("<<association>> _____"),
+	GENERALIZATION(" <<generalization>>___|>"),
+	REALIZATION("<<realizations>>---|>"),
+	DEPENDENCY("<<dependency>>----->"),
+	AGGREGATION("<<aggregation>>---<>"),
+	COMPOSITION("<<composition>>----*");
 	
 	private final String representation;
 

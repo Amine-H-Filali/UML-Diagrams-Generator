@@ -31,4 +31,15 @@ public abstract class UMLClassifier {
 		return name;
 	}
 	
+	@Override
+	public String toString() {
+		String out = simpleName + "\n";
+
+		for (UMLEntity member : umlEntities) {
+			out += "\t" + member + "\n";
+		}
+
+		return out;
+	}
+	
 }

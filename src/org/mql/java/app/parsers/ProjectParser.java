@@ -5,8 +5,12 @@ import java.util.HashSet;
 
 import java.util.Set;
 
+import org.mql.java.app.enums.RelationType;
 import org.mql.java.app.models.ProjectModel;
+import org.mql.java.app.models.UMLModel;
 import org.mql.java.app.models.UMLPackageModel;
+import org.mql.java.app.models.UMLRelationModel;
+import org.mql.java.app.relations.RelationExtractor;
 
 public class ProjectParser implements Parser {
 	private Set<File> packagesList;
@@ -49,9 +53,17 @@ public class ProjectParser implements Parser {
 	}
 	
 	private void parseRelations() {
-		System.out.println("Detecting relations...");
+		
+		
+		RelationExtractor relationExtractor;
+		for (UMLModel parent : project.getModels()) {
+			relationExtractor = new RelationExtractor();
+			for (UMLModel child : project.getModels()) {				
+				project.addRelations(relationExtractor.parse(parent, child));
+			}
+		}
 
-		System.out.println("Relations detection end");
+		
 	}
 
 	public ProjectModel getProject() {

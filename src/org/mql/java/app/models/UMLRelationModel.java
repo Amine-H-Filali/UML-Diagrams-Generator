@@ -33,7 +33,9 @@ public class UMLRelationModel {
 	@Override
 	public String toString() {
 		
-		return child.getName() + type.getRepresentation() + parent.getName();
+		
+		
+		return child.getSimpleName() + " " + type.getRepresentation() + " " + parent.getSimpleName();
 		
 	}
 

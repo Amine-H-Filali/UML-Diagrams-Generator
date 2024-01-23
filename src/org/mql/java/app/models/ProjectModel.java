@@ -32,8 +32,12 @@ public class ProjectModel {
 		this.name = name;
 	}
 
-	public void addPackage(UMLPackageModel pUmlPackage) {
-		this.packages.add(pUmlPackage);
+	public void addPackage(UMLPackageModel umlPackage) {
+		packages.add(umlPackage);
+	}
+
+	public void addRelations(List<UMLRelationModel> relations) {
+		this.relations.addAll(relations);
 	}
 	
 	public List<UMLPackageModel> getPackages() {
@@ -43,13 +47,33 @@ public class ProjectModel {
 	public List<UMLRelationModel> getRelations() {
 		return relations;
 	}
+	
+	public List<UMLModel> getModels() {
+		List<UMLModel> models = new Vector<>();
+
+		for (UMLPackageModel umlPackage : packages) {
+			for (UMLClassifier umlClassifier : umlPackage.getClassifiers()) {
+				
+				if (umlClassifier instanceof UMLModel) {
+					models.add((UMLModel) umlClassifier);
+				}
+			}
+		}
+
+		
+		return models;
+	}
 
 	@Override
 	public String toString() {
 		String out = "Project Path : " + name + "\n";
-		out += "_".repeat(out.length()) + "\n";
+		out += "#".repeat(out.length()) + "\n";
 		for (UMLPackageModel umlPackage : packages) {
-			out += "\n" + umlPackage;
+			out += umlPackage + "\n";
+		}
+
+		for (UMLRelationModel umlRelation : relations) {
+			out += umlRelation + "\n";
 		}
 
 		return out;
