@@ -3,6 +3,8 @@ package org.mql.java.app.models;
 import java.util.List;
 import java.util.Vector;
 
+
+
 public class ProjectModel {
 
 	private String name;
@@ -84,10 +86,30 @@ public class ProjectModel {
 
 	@Override
 	public String toString() {
-		String out = "Project Path : " + name + "\n";
-		out += "#".repeat(out.length()) + "\n";
+		
+		
+		String out = "Project name : " + name + "\n";
+		out += "-".repeat(out.length()) + "\n";
+		
+		if (packages.size() > 0) {
+			String title="List of packages :";
+			out += "\n\n "+title+"\n";
+			out += "-".repeat(title.length()) + "\n\n";
+			
+		} else {
+			out += "\n\n No packages were found";
+		}
+
 		for (UMLPackageModel umlPackage : packages) {
 			out += umlPackage + "\n";
+			
+		}
+		if (relations.size() > 0) {
+			String title= "List of relations \n";
+			out +=title;
+			out += "-".repeat(title.length()) + "\n\n";
+		} else {
+			out+= "No relations were found";
 		}
 
 		for (UMLRelationModel umlRelation : relations) {

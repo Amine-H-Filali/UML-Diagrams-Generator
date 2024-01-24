@@ -23,18 +23,8 @@ public class UMLField extends UMLPropertyMember{
 
 	@Override
 	public String toString() {
-		String out = "";
+	
 
-		if (visibility != null)
-			out += visibility.getSymbol() + " ";
-
-		out += name;
-
-		if (type != null) {
-			out += " : ";
-			out += type;
-		}
-
-		return out;
+		return super.toString();
 	}
 }

@@ -28,7 +28,7 @@ public class UMLClass extends UMLModel {
 
 	@Override
 	public String toString() {
-		return "Class " + super.toString();
+		return "Class : " + super.toString();
 	}
 
 }

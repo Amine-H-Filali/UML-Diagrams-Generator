@@ -29,9 +29,9 @@
                             <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="org.mql.java.exemple.enums.Color" name="getColor" static="false" type="Color" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="java.lang.String" name="getName" static="false" type="String" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="org.mql.java.exemple.enums.Color" name="getColor" static="false" type="Color" visibility="PUBLIC"/>
                 </methods>
             </class>
             <class abstract="true" generic-type="org.mql.java.exemple.models.Bird" name="Bird">
@@ -46,9 +46,9 @@
                             <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="void" name="fly" static="false" type="void" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="boolean" name="canFly" static="false" type="boolean" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="boolean" name="canFly" static="false" type="boolean" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="fly" static="false" type="void" visibility="PUBLIC"/>
                 </methods>
             </class>
             <class abstract="false" generic-type="org.mql.java.exemple.models.Dog" name="Dog">
@@ -64,9 +64,9 @@
                             <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
+                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="giveBirth" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="java.lang.String" name="getBreed" static="false" type="String" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                 </methods>
             </class>
             <class abstract="false" generic-type="org.mql.java.exemple.models.Eagle" name="Eagle">
@@ -82,9 +82,9 @@
                             <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="void" name="fly" static="false" type="void" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="double" name="getWingspan" static="false" type="double" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="fly" static="false" type="void" visibility="PUBLIC"/>
                 </methods>
             </class>
             <class abstract="false" generic-type="org.mql.java.exemple.models.Fish" name="Fish">
@@ -99,10 +99,10 @@
                             <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="java.lang.String" name="getHabitat" static="false" type="String" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="swim" static="false" type="void" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="java.lang.String" name="getHabitat" static="false" type="String" visibility="PUBLIC"/>
                 </methods>
             </class>
             <class abstract="true" generic-type="org.mql.java.exemple.models.Mammal" name="Mammal">
@@ -117,9 +117,9 @@
                             <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
+                    <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="int" name="getNumberOfLegs" static="false" type="int" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="giveBirth" static="false" type="void" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
                 </methods>
             </class>
             <interface generic-type="org.mql.java.exemple.models.Moveable" name="Moveable">
@@ -157,12 +157,12 @@
             <class abstract="false" generic-type="org.mql.java.exemple.tests.Examples" name="Examples">
                 <methods>
                     <method constructor="true" final="false" name="Examples" static="false" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="exp01" static="false" type="void" visibility="PACKAGE"/>
                     <method constructor="false" final="false" generic-type="void" name="main" static="true" type="void" visibility="PUBLIC">
                         <parameters>
                             <parameter type="java.lang.String[]"/>
                         </parameters>
                     </method>
+                    <method constructor="false" final="false" generic-type="void" name="exp01" static="false" type="void" visibility="PACKAGE"/>
                 </methods>
             </class>
             <class abstract="false" generic-type="org.mql.java.exemple.tests.Print" name="Print">

@@ -46,8 +46,8 @@ public class UMLMethod extends UMLPropertyMember {
 
 		out += ")";
 
-		if (type != null)
-			out += " : " + type;
+		if (getSimpleType() != null)
+			out += " : " + getSimpleType();
 
 		return out;
 	}

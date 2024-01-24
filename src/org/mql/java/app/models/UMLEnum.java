@@ -8,7 +8,7 @@ public class UMLEnum extends UMLClassifier {
 
 	@Override
 	public String toString() {
-		return "Enumeration " + super.toString();
+		return "Enumeration : " + super.toString();
 	}
 
 }

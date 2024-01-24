@@ -58,14 +58,12 @@ public class Main extends JFrame {
 		try {
 			ProjectParser projectParser = new ProjectParser(binPath);
 			ProjectModel project = projectParser.getProject();
-
+			System.out.println(projectParser.getProject());
 			ProjectXmlParser projectDOMParser = new ProjectXmlParser();
-			// projectDOMParser.parse(new File("bin/project-dom.xml"));
-			// Project project = projectDOMParser.getProject();
+			
 			projectDOMParser.persist(project);
 
-			// panelPane.setSize(new Dimension(1000, 1000));
-
+			
 			if (project != null) {
 				JScrollPane panelPane = new JScrollPane(new JProject(project));
 				setContentPane(panelPane);

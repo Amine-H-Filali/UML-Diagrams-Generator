@@ -8,7 +8,7 @@ public class UMLInterface extends UMLModel {
 
 	@Override
 	public String toString() {
-		return "Interface " + super.toString();
+		return "Interface : " + super.toString();
 	}
 
 }

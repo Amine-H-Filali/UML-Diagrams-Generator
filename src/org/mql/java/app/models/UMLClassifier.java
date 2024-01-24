@@ -36,7 +36,7 @@ public abstract class UMLClassifier {
 		String out = simpleName + "\n";
 
 		for (UMLEntity member : umlEntities) {
-			out += "\t" + member + "\n";
+			out += "\t \t" + member + "\n";
 		}
 
 		return out;
