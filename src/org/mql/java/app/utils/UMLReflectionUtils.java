@@ -1,33 +1,31 @@
 package org.mql.java.app.utils;
 
-import org.mql.java.app.models.UMLClass;
-import org.mql.java.app.models.UMLEntity;
-import org.mql.java.app.models.UMLField;
-import org.mql.java.app.models.UMLMethod;
+import java.lang.reflect.Field;
+
+
 
 public class UMLReflectionUtils {
-	public static boolean isMethodParameter(String parameterTypeName, UMLMethod operation) {
-		for (String paramTypeName : operation.getParameters()) {
-			if (paramTypeName.equals(parameterTypeName))
-				return true;
-		}
-		return false;
+	
 
+	public static boolean isIterable(Field field) {		
+		return field.getType().isArray() 
+		|| field.getType().getName().contains("Iterable")
+		|| field.getType().getName().contains("Collection") 
+		|| field.getType().getName().contains("List")
+		|| field.getType().getName().contains("ArrayList")
+		|| field.getType().getName().contains("LinkedList")
+		|| field.getType().getName().contains("Vector")
+		|| field.getType().getName().contains("Stack")
+		|| field.getType().getName().contains("Queue")
+		|| field.getType().getName().contains("PriorityQueue")
+		|| field.getType().getName().contains("Deque")
+		|| field.getType().getName().contains("ArrayDeque")
+		|| field.getType().getName().contains("Set")
+		|| field.getType().getName().contains("HashSet")
+		|| field.getType().getName().contains("LinkedHashSet")
+		|| field.getType().getName().contains("SortedSet")
+		|| field.getType().getName().contains("TreeSet");
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
-	public static boolean isClassField(UMLClass umlClass, UMLField attribute) {
-		for (UMLEntity member : umlClass.getUmlEntities()) {
-			if (member instanceof UMLField) {
-				UMLField localAttribute = (UMLField) member;
-				if (localAttribute.getName().equals(attribute))
-					return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean isFinalClassField(UMLClass umlClass, UMLField attribute) {
-		return (isClassField(umlClass, attribute) && attribute.isFinal());
-	}
+	
 }

@@ -12,44 +12,52 @@ import org.mql.java.app.models.UMLInterface;
 import org.mql.java.app.models.UMLMethod;
 import org.mql.java.app.models.UMLModel;
 import org.mql.java.app.models.UMLRelationModel;
-import org.mql.java.app.utils.UMLReflectionUtils;
+import org.mql.java.app.utils.RelationUtils;
+
 
 public class RelationExtractor {
 
-	public List<UMLRelationModel> parse(UMLModel parent, UMLModel child) {
-		if (parent != null && child != null) {
+	public List<UMLRelationModel> parse(UMLModel child, UMLModel parent) {
+		if (child != null && parent != null) {
 
 			List<UMLRelationModel> relations = new Vector<>();
 
-			if (!parent.equals(child)) {
-				UMLRelationModel dependency = detectDependency(parent, child);
+			if (!child.equals(parent)) {
+				UMLRelationModel dependency = detectDependency(child, parent);
 				if (dependency != null) {
 
 					relations.add(dependency);
 				}
 
-				UMLRelationModel association = detectAssociation(parent, child);
-				dependency = detectDependency(parent, child);
+				UMLRelationModel association = detectAssociation(child, parent);
+				
 				if (association != null) {
-
+					relations.remove(dependency);
 					relations.add(association);
 				}
 
-				UMLRelationModel aggregation = detectAggregation(parent, child, "");
-				if (aggregation != null)
-					relations.add(aggregation);
+				UMLRelationModel aggregation = null;
+				if (association != null) {
+					aggregation = detectAggregation(child, parent);
+					if (aggregation != null) {
+						
+						relations.remove(association);
+						relations.add(aggregation);
+					}
+				}
 
-				UMLRelationModel composition = detectComposition(parent, child);
-				if (composition != null)
-					relations.add(composition);
+				UMLRelationModel composition = detectComposition(child, parent);
+				if (composition != null) {
+					relations.remove(aggregation);
+					relations.add(composition);}
 
-				UMLRelationModel realization = detectRealization(parent, child);
-				if (realization != null)
-					relations.add(realization);
+				UMLRelationModel realization = detectRealization(child, parent);
+				if (realization != null) {
+					relations.add(realization);}
 
-				UMLRelationModel generalization = detectGeneralization(parent, child);
-				if (generalization != null)
-					relations.add(generalization);
+				UMLRelationModel generalization = detectGeneralization(child, parent);
+				if (generalization != null) {
+					relations.add(generalization);}
 			}
 
 			return relations;
@@ -57,109 +65,85 @@ public class RelationExtractor {
 		return null;
 	}
 
-	private UMLRelationModel detectDependency(UMLModel parent, UMLModel child) {
+	private UMLRelationModel detectDependency(UMLModel child, UMLModel parent) {
 		UMLRelationModel dependency = null;
 
 		for (UMLEntity member : parent.getUmlEntities()) {
 			if (member instanceof UMLMethod) {
 				UMLMethod operation = (UMLMethod) member;
-				if (!operation.isConstructor()) {
-					for (String parameter : operation.getParameters()) {
-						if (UMLReflectionUtils.isMethodParameter(parameter, operation)) {
-							dependency = new UMLRelationModel(parent, child, RelationType.DEPENDENCY);
-						}
-					}
-				}
+				if (RelationUtils.isMethodParameter(child.getName(), operation)) {
+					dependency = new UMLRelationModel(child, parent, RelationType.DEPENDENCY);
 			}
+		}
 		}
 
 		return dependency;
 	}
 
-	private UMLRelationModel detectAssociation(UMLModel parent, UMLModel child) {
-		UMLRelationModel association = null;
+	private UMLRelationModel detectAssociation(UMLModel child, UMLModel parent) {		
+		if (child instanceof UMLClass && parent instanceof UMLClass) {
+			if (RelationUtils.childInParentAttributes(child, parent) != null) {
+				return new UMLRelationModel(child, parent, RelationType.ASSOCIATION);
+			}
+		}
+		return null;
+	}
 
-		if (parent instanceof UMLClass && child instanceof UMLClass) {
-			for (UMLEntity member : parent.getUmlEntities()) {
-				if (member instanceof UMLField) {
-					
-					if (UMLReflectionUtils.isClassField((UMLClass) child, (UMLField) member)) {
-						// is class attribute
-						association = new UMLRelationModel(child, parent, RelationType.ASSOCIATION);
-					}
+
+	private UMLRelationModel detectAggregation(UMLModel child, UMLModel parent) {
+		if (child instanceof UMLClass && parent instanceof UMLClass) {	
+			UMLField attribute = RelationUtils.childInParentAttributes(child, parent);
+
+			if (attribute != null && attribute.isMultiple()) {
+				if (RelationUtils.parameterInAtLeastOneConstructor(attribute.getType(), parent)) {
+					return new UMLRelationModel(child, parent, RelationType.AGGREGATION);
 				}
 			}
 		}
 
-		return association;
+		
+		return null;
 	}
 
-	private UMLRelationModel detectAggregation(UMLModel parent, UMLModel child, String parameter) {
-		UMLRelationModel aggregation = null;
+	private UMLRelationModel detectComposition(UMLModel child, UMLModel parent) {				
+		if (child instanceof UMLClass && parent instanceof UMLClass) {
 
-		if (detectAssociation(parent, child) != null) {
-			for (UMLEntity member : parent.getUmlEntities()) {
-				if (member instanceof UMLMethod) {
-					UMLMethod operation = (UMLMethod) member;
-					if (operation.isConstructor()) {
-						for (String param : operation.getParameters()) {
-							if (UMLReflectionUtils.isMethodParameter(param, operation)) {
-								// attribute is operation parameter
-								parameter = param;
-								aggregation = new UMLRelationModel(parent, child, RelationType.AGGREGATION);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return aggregation;
-	}
-
-	private UMLRelationModel detectComposition(UMLModel parent, UMLModel child) {
-		UMLRelationModel composition = null;
-
-		String parameter = "";
-
-		if (detectAggregation(parent, child, parameter) != null) {
-			for (UMLEntity member : parent.getUmlEntities()) {
-				if (member instanceof UMLField) {
-					if (UMLReflectionUtils.isFinalClassField((UMLClass) child, (UMLField) member)) {
-						// final attribute and constructor parameter
-						composition = new UMLRelationModel(child, parent, RelationType.COMPOSITION);
-					}
-				}
-			}
-		} else if (parent.getName().contains(child.getName())) {
 			// inner class
-			composition = new UMLRelationModel(child, parent, RelationType.COMPOSITION);
+			if (child.getName().contains(parent.getName())) {
+				return new UMLRelationModel(child, parent, RelationType.COMPOSITION);
+			}
+			else {
+				UMLField attribute = RelationUtils.childInParentAttributes(child, parent);
+
+				if (attribute != null && attribute.isMultiple() && attribute.isFinal()) {
+					if (RelationUtils.parameterInAtLeastOneConstructor(attribute.getType(), parent)) {
+						return new UMLRelationModel(child, parent, RelationType.COMPOSITION);
+					}
+				}
+			}
+		}
+		return null;
 		}
 
-		return composition;
-	}
-
-	private UMLRelationModel detectRealization(UMLModel parent, UMLModel child) {
-		UMLRelationModel realization = null;
-
-		if (parent instanceof UMLClass && child instanceof UMLInterface) {
-			UMLClass clazz = (UMLClass) parent;
-			if (clazz.getImplementedInterfaces().contains(child.getName())) {
-				realization = new UMLRelationModel(parent, child, RelationType.REALIZATION);
+	private UMLRelationModel detectRealization(UMLModel child, UMLModel parent) {		
+		if (child instanceof UMLClass && parent instanceof UMLInterface) {
+			UMLClass clazz = (UMLClass) child;
+			if (clazz.getImplementedInterfaces().contains(parent.getName())) {
+				return new UMLRelationModel(child, parent, RelationType.REALIZATION);
 			}
 		}
 
-		return realization;
+		
+		return null;
 	}
 
-	private UMLRelationModel detectGeneralization(UMLModel parent, UMLModel child) {
-		UMLRelationModel generalization = null;
-
-		if (parent.getMotherModelName().equals(child.getName())) {
-			generalization = new UMLRelationModel(parent, child, RelationType.GENERALIZATION);
+	private UMLRelationModel detectGeneralization(UMLModel child, UMLModel parent) {		
+		if (child.getMotherModelName().equals(parent.getName())) {
+			return new UMLRelationModel(child, parent, RelationType.GENERALIZATION);
 		}
 
-		return generalization;
+		
+		return null;
 	}
 
 }

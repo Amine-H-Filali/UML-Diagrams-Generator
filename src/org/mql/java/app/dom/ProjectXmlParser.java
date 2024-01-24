@@ -5,6 +5,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.mql.java.app.enums.RelationType;
 import org.mql.java.app.enums.Visibility;
 import org.mql.java.app.models.ProjectModel;
 import org.mql.java.app.models.UMLClass;
@@ -14,7 +15,10 @@ import org.mql.java.app.models.UMLEnum;
 import org.mql.java.app.models.UMLField;
 import org.mql.java.app.models.UMLInterface;
 import org.mql.java.app.models.UMLMethod;
+import org.mql.java.app.models.UMLModel;
 import org.mql.java.app.models.UMLPackageModel;
+import org.mql.java.app.models.UMLParameter;
+import org.mql.java.app.models.UMLRelationModel;
 import org.mql.java.app.parsers.Parser;
 import org.w3c.dom.Document;
 
@@ -40,17 +44,22 @@ public class ProjectXmlParser implements Parser {
 	}
 	
 	
-	public void persist() {
+	
+	
+	
+	public void persist(ProjectModel project) {
 		UmlXmlMapper mapper = new UmlXmlMapper(document);
-		XMLNode projectNode = mapper.mapXmlNodeFromModel(ProjectModel.getInstance());
+		
+		XMLNode projectNode = mapper.mapXmlNodeFromModel(project);
 
 		try {
-			 String resourcesPath = "resources/";
+			
+			String resourcesPath = "resources/";
 			String path = resourcesPath + "project.xml";
 
 			projectNode.persist(path);
 		} catch (Exception e) {
-
+			
 		}
 	}
 
@@ -62,8 +71,7 @@ public class ProjectXmlParser implements Parser {
 			// TODO : read xml file
 			XMLNode projectNode = new XMLNode(file);
 
-			project = ProjectModel.getInstance();
-			project.setName(projectNode.getAttribute("name"));
+			project = ProjectModel.getInstance(projectNode.getAttribute("name"));
 
 			for (XMLNode packageNode : projectNode.getChild("packages").getChildren()) {
 				UMLPackageModel umlPackage = new UMLPackageModel(packageNode.getAttribute("name"));
@@ -95,10 +103,10 @@ public class ProjectXmlParser implements Parser {
 								boolean isAttributeStatic = attributeNode.getBooleanAttribute("static");
 								boolean isAttributeFinal = attributeNode.getBooleanAttribute("final");
 								String attributeType = attributeNode.getAttribute("type");
-								String attributeSimpleType = attributeNode.getAttribute("simple-type");
+								
 								String attributeVisibility = attributeNode.getAttribute("visibility");
 
-								umlClassifier.addUMLEntity(new UMLField(attributeName, Visibility.valueOf(attributeVisibility), attributeType, attributeSimpleType, isAttributeStatic, isAttributeFinal));
+								umlClassifier.addUMLEntity(new UMLField(attributeName, Visibility.valueOf(attributeVisibility), attributeType, isAttributeStatic, isAttributeFinal));
 							}
 						}
 
@@ -109,14 +117,14 @@ public class ProjectXmlParser implements Parser {
 								boolean isOperationStatic = operationNode.getBooleanAttribute("static");
 								boolean isOperationFinal = operationNode.getBooleanAttribute("final");
 								String operationType = operationNode.getAttribute("type");
-								String operationSimpleType = operationNode.getAttribute("simple-type");
+								
 								String operationVisibility = operationNode.getAttribute("visibility");
 
-								UMLMethod umlOperation = new UMLMethod(operationName, Visibility.valueOf(operationVisibility), operationType, operationSimpleType, isOperationStatic, isOperationFinal, isOperationConstructor);
+								UMLMethod umlOperation = new UMLMethod(operationName, Visibility.valueOf(operationVisibility), operationType, isOperationStatic, isOperationFinal, isOperationConstructor);
 
 								if (operationNode.getChild("parameters") != null) {
 									for (XMLNode parameterNode : operationNode.getChild("parameters").getChildren()) {
-										umlOperation.addParameter(parameterNode.getAttribute("type"));
+										umlOperation.addParameter(new UMLParameter(parameterNode.getAttribute("type")));
 									}								
 								}
 
@@ -128,7 +136,16 @@ public class ProjectXmlParser implements Parser {
 					umlPackage.addClassifier(umlClassifier);
 				}
 
-				project.addPackage(umlPackage);
+				project.addPackage(umlPackage); 
+			}
+			
+			// parsing relations
+			for (XMLNode relationNode : projectNode.getChild("relations").getChildren()) {
+				RelationType relationType = RelationType.valueOf(relationNode.getAttribute("type"));
+				UMLModel parent = project.getModel(relationNode.getAttribute("parent"));
+				UMLModel child = project.getModel(relationNode.getAttribute("child"));
+
+				project.addRelation(new UMLRelationModel(parent, child, relationType));
 			}
 		
 

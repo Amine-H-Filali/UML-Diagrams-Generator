@@ -13,12 +13,12 @@ import org.mql.java.app.ui.app.Label;
 public class JUMLEntity extends JPanel  {
 	private static final long serialVersionUID = 1L;
 
-	protected UMLEntity umlCharacteristic;
+	protected UMLEntity umlEntity;
 
 	protected Label signatureLabel;
 
 	public JUMLEntity(UMLEntity umlCharacteristic) {
-		this.umlCharacteristic = umlCharacteristic;
+		this.umlEntity = umlCharacteristic;
 
 		setOpaque(false);
 		setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -39,7 +39,16 @@ public class JUMLEntity extends JPanel  {
 
 			if (property instanceof UMLMethod) {
 				UMLMethod operation = (UMLMethod) property;
-				signatureLabel.addText("(" + String.join(",", operation.getParameters()) + ")");
+				signatureLabel.addText("(");
+
+				for (int i = 0; i < operation.getParameters().size(); i++) {
+					signatureLabel.addText(operation.getParameters().get(i).getSimpleType());
+					if (i < operation.getParameters().size()-1) {
+						signatureLabel.addText(", ");
+					}
+				}
+
+				signatureLabel.addText(")");
 			}
 
 			if (property.getSimpleType() != null) {

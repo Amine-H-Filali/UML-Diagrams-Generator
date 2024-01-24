@@ -5,11 +5,10 @@ import java.util.HashSet;
 
 import java.util.Set;
 
-import org.mql.java.app.enums.RelationType;
 import org.mql.java.app.models.ProjectModel;
 import org.mql.java.app.models.UMLModel;
 import org.mql.java.app.models.UMLPackageModel;
-import org.mql.java.app.models.UMLRelationModel;
+
 import org.mql.java.app.relations.RelationExtractor;
 
 public class ProjectParser implements Parser {
@@ -24,8 +23,8 @@ public class ProjectParser implements Parser {
 
 	private void loadPackagesFiles(File directory) {
 		for (File file : directory.listFiles()) {
-			if (file.isFile()) {
-				
+			if (file.isFile() && file.getName().endsWith(".class")) {
+
 				packagesList.add(file.getParentFile());
 
 			} else if (file.isDirectory()) {
@@ -34,36 +33,32 @@ public class ProjectParser implements Parser {
 			}
 		}
 	}
-	
+
 	private void parsePackages() {
 		try {
-			
 
 			for (File packageFile : packagesList) {
 				UMLPackageModel p = new PackageParser(packageFile).getUmlPackage();
 				project.addPackage(p);
-							
+
 			}
 
-			
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.getStackTrace();
-			
+
 		}
 	}
-	
+
 	private void parseRelations() {
-		
-		
+
 		RelationExtractor relationExtractor;
 		for (UMLModel parent : project.getModels()) {
 			relationExtractor = new RelationExtractor();
-			for (UMLModel child : project.getModels()) {				
+			for (UMLModel child : project.getModels()) {
 				project.addRelations(relationExtractor.parse(parent, child));
 			}
 		}
 
-		
 	}
 
 	public ProjectModel getProject() {
@@ -71,14 +66,17 @@ public class ProjectParser implements Parser {
 	}
 
 	@Override
-	
+
 	public void parse(File file) throws Exception {
-		if (!file.exists()) throw new Exception("Project not found");
+		if (!file.exists())
+			throw new Exception("Project not found");
+
+		String projectName = file.getAbsolutePath().replace("\\bin", "")
+				.substring(file.getAbsolutePath().replace("\\bin", "").lastIndexOf("\\") + 1);
+
+		project = ProjectModel.getInstance(projectName);
 
 		loadPackagesFiles(file);
-
-		project = ProjectModel.getInstance();
-		project.setName(file.getAbsolutePath());
 
 		try {
 			parsePackages();

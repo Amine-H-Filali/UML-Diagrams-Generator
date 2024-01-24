@@ -10,16 +10,16 @@ public class ProjectModel {
 	private static ProjectModel project;
 	private List<UMLRelationModel> relations;
 
-	public static ProjectModel getInstance() {
+	public static ProjectModel getInstance(String name) {
 		if (project != null)
 			return project;
-		project = new ProjectModel();
+		project = new ProjectModel(name);
 		return project;
 	}
 
-	private ProjectModel() {
+	private ProjectModel(String name) {
 		super();
-
+		this.name = name;
 		this.packages = new Vector<>();
 		this.relations = new Vector<>();
 	}
@@ -34,6 +34,10 @@ public class ProjectModel {
 
 	public void addPackage(UMLPackageModel umlPackage) {
 		packages.add(umlPackage);
+	}
+	
+	public void addRelation(UMLRelationModel relation) {
+		this.relations.add(relation);
 	}
 
 	public void addRelations(List<UMLRelationModel> relations) {
@@ -62,6 +66,20 @@ public class ProjectModel {
 
 		
 		return models;
+	}
+	
+	
+	
+	public UMLModel getModel(String name) {
+		for (UMLPackageModel umlPackage : packages) {
+			for (UMLClassifier umlClassifier : umlPackage.getClassifiers()) {
+				if (umlClassifier instanceof UMLModel && umlClassifier.getName().equals(name)) {
+					return (UMLModel) umlClassifier;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	@Override

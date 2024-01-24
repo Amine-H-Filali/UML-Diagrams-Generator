@@ -6,26 +6,25 @@ import java.util.Vector;
 import org.mql.java.app.enums.Visibility;
 
 public class UMLMethod extends UMLPropertyMember {
-	private List<String> parameters;
+	
 	private boolean _constructor;
+	private List<UMLParameter> parameters;
 
 	public UMLMethod(String name, Visibility visibility) {
 		
-		this(name, visibility, null, null, false, false, true);
+		this(name, visibility, null, false, false, true);
 	}
 
-	public UMLMethod(String name, Visibility visibility, String type, String simpleType, boolean _static, boolean _final, boolean _constructor) {
-		super(name, visibility, type, simpleType, _static, _final);
+	public UMLMethod(String name, Visibility visibility, String type, boolean _static, boolean _final, boolean _constructor) {
+		super(name, visibility, type, _static, _final);
 		parameters = new Vector<>();
-		
 		this._constructor = _constructor;
 	}
-
-	public void addParameter(String parameter) {
+	public void addParameter(UMLParameter parameter) {
 		parameters.add(parameter);
 	}
 
-	public List<String> getParameters() {
+	public List<UMLParameter> getParameters() {
 		return parameters;
 	}
 	

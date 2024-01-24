@@ -6,17 +6,17 @@ public abstract class UMLPropertyMember extends UMLEntity {
 
 	protected Visibility visibility;
 	protected String type;
-	protected String simpleType;
+	
 	protected boolean _static;
 	protected boolean _final;
 
-	public UMLPropertyMember(String name, Visibility visibility, String type, String simpleType, boolean _static, boolean _final) {
+	public UMLPropertyMember(String name, Visibility visibility, String type, boolean _static, boolean _final) {
 		super(name);
 		this.visibility = visibility;
 		this.type = type;
 		this._static = _static;
 		this._final = _final;
-		this.simpleType = simpleType;
+		
 	}
 
 	public Visibility getVisibility() {
@@ -28,7 +28,8 @@ public abstract class UMLPropertyMember extends UMLEntity {
 	}
 
 	public String getSimpleType() {
-		return simpleType;
+		if (type == null) return null;
+		return type.substring(type.lastIndexOf(".") + 1);
 	}
 
 	

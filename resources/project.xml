@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="C:\Users\AMINE-HF\eclipse-workspace\MQL\Java\UML-Test-App\bin">
+<?xml version="1.0" encoding="UTF-8"?><project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="UML-Test-App" xsi:noNamespaceSchemaLocation="../resources/schema.xsd">
     <packages>
         <package name="org.mql.java.exemple.enums">
             <enumeration generic-type="org.mql.java.exemple.enums.Color" name="Color">
@@ -25,8 +25,8 @@
                 <methods>
                     <method constructor="true" final="false" name="Animal" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
-                            <parameter type="Color"/>
+                            <parameter type="java.lang.String"/>
+                            <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
                     <method constructor="false" final="false" generic-type="org.mql.java.exemple.enums.Color" name="getColor" static="false" type="Color" visibility="PUBLIC"/>
@@ -41,13 +41,13 @@
                 <methods>
                     <method constructor="true" final="false" name="Bird" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
+                            <parameter type="java.lang.String"/>
                             <parameter type="boolean"/>
-                            <parameter type="Color"/>
+                            <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="boolean" name="canFly" static="false" type="boolean" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="fly" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="boolean" name="canFly" static="false" type="boolean" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
                 </methods>
             </class>
@@ -58,10 +58,10 @@
                 <methods>
                     <method constructor="true" final="false" name="Dog" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
+                            <parameter type="java.lang.String"/>
                             <parameter type="int"/>
-                            <parameter type="String"/>
-                            <parameter type="Color"/>
+                            <parameter type="java.lang.String"/>
+                            <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
                     <method constructor="false" final="false" generic-type="void" name="giveBirth" static="false" type="void" visibility="PUBLIC"/>
@@ -76,15 +76,15 @@
                 <methods>
                     <method constructor="true" final="false" name="Eagle" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
+                            <parameter type="java.lang.String"/>
                             <parameter type="boolean"/>
                             <parameter type="double"/>
-                            <parameter type="Color"/>
+                            <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="double" name="getWingspan" static="false" type="double" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="fly" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="double" name="getWingspan" static="false" type="double" visibility="PUBLIC"/>
                 </methods>
             </class>
             <class abstract="false" generic-type="org.mql.java.exemple.models.Fish" name="Fish">
@@ -94,14 +94,14 @@
                 <methods>
                     <method constructor="true" final="false" name="Fish" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
-                            <parameter type="String"/>
-                            <parameter type="Color"/>
+                            <parameter type="java.lang.String"/>
+                            <parameter type="java.lang.String"/>
+                            <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
-                    <method constructor="false" final="false" generic-type="void" name="swim" static="false" type="void" visibility="PUBLIC"/>
-                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="java.lang.String" name="getHabitat" static="false" type="String" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="makeSound" static="false" type="void" visibility="PUBLIC"/>
+                    <method constructor="false" final="false" generic-type="void" name="swim" static="false" type="void" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="move" static="false" type="void" visibility="PUBLIC"/>
                 </methods>
             </class>
@@ -112,9 +112,9 @@
                 <methods>
                     <method constructor="true" final="false" name="Mammal" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
+                            <parameter type="java.lang.String"/>
                             <parameter type="int"/>
-                            <parameter type="Color"/>
+                            <parameter type="org.mql.java.exemple.enums.Color"/>
                         </parameters>
                     </method>
                     <method constructor="false" final="false" generic-type="int" name="getNumberOfLegs" static="false" type="int" visibility="PUBLIC"/>
@@ -135,13 +135,13 @@
                 <methods>
                     <method constructor="true" final="false" name="Person" static="false" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String"/>
+                            <parameter type="java.lang.String"/>
                             <parameter type="int"/>
                         </parameters>
                     </method>
                     <method constructor="false" final="false" generic-type="void" name="ownPet" static="false" type="void" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="Animal"/>
+                            <parameter type="org.mql.java.exemple.models.Animal"/>
                         </parameters>
                     </method>
                     <method constructor="false" final="false" generic-type="int" name="getAge" static="false" type="int" visibility="PUBLIC"/>
@@ -160,7 +160,7 @@
                     <method constructor="false" final="false" generic-type="void" name="exp01" static="false" type="void" visibility="PACKAGE"/>
                     <method constructor="false" final="false" generic-type="void" name="main" static="true" type="void" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="String[]"/>
+                            <parameter type="java.lang.String[]"/>
                         </parameters>
                     </method>
                 </methods>
@@ -170,7 +170,7 @@
                     <method constructor="true" final="false" name="Print" static="false" visibility="PUBLIC"/>
                     <method constructor="false" final="false" generic-type="void" name="printDetails" static="true" type="void" visibility="PUBLIC">
                         <parameters>
-                            <parameter type="Animal"/>
+                            <parameter type="org.mql.java.exemple.models.Animal"/>
                         </parameters>
                     </method>
                 </methods>
@@ -178,6 +178,8 @@
         </package>
     </packages>
     <relations>
+        <relation child="org.mql.java.exemple.models.Animal" parent="org.mql.java.exemple.models.Person" type="DEPENDENCY"/>
+        <relation child="org.mql.java.exemple.models.Animal" parent="org.mql.java.exemple.tests.Print" type="DEPENDENCY"/>
         <relation child="org.mql.java.exemple.models.Bird" parent="org.mql.java.exemple.models.Animal" type="GENERALIZATION"/>
         <relation child="org.mql.java.exemple.models.Bird" parent="org.mql.java.exemple.models.Moveable" type="REALIZATION"/>
         <relation child="org.mql.java.exemple.models.Dog" parent="org.mql.java.exemple.models.Mammal" type="GENERALIZATION"/>
@@ -189,38 +191,5 @@
         <relation child="org.mql.java.exemple.models.Fish" parent="org.mql.java.exemple.models.SoundProducible" type="REALIZATION"/>
         <relation child="org.mql.java.exemple.models.Mammal" parent="org.mql.java.exemple.models.Animal" type="GENERALIZATION"/>
         <relation child="org.mql.java.exemple.models.Mammal" parent="org.mql.java.exemple.models.Moveable" type="REALIZATION"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.annotations.PetAnnotation" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Animal" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Bird" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Dog" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Eagle" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Fish" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Mammal" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.Moveable" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.models.SoundProducible" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.tests.Examples" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.models.Person" parent="org.mql.java.exemple.tests.Print" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.annotations.PetAnnotation" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Animal" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Bird" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Dog" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Eagle" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Fish" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Mammal" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Moveable" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.Person" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.models.SoundProducible" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Examples" parent="org.mql.java.exemple.tests.Print" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.annotations.PetAnnotation" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Animal" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Bird" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Dog" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Eagle" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Fish" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Mammal" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Moveable" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.Person" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.models.SoundProducible" type="DEPENDENCY"/>
-        <relation child="org.mql.java.exemple.tests.Print" parent="org.mql.java.exemple.tests.Examples" type="DEPENDENCY"/>
     </relations>
 </project>

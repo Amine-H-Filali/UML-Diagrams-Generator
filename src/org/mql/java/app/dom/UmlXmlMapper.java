@@ -3,6 +3,8 @@ package org.mql.java.app.dom;
 import java.util.List;
 import java.util.Vector;
 
+import javax.xml.XMLConstants;
+
 import org.mql.java.app.models.ProjectModel;
 import org.mql.java.app.models.UMLClass;
 import org.mql.java.app.models.UMLClassifier;
@@ -12,6 +14,7 @@ import org.mql.java.app.models.UMLEnum;
 import org.mql.java.app.models.UMLField;
 import org.mql.java.app.models.UMLMethod;
 import org.mql.java.app.models.UMLPackageModel;
+import org.mql.java.app.models.UMLParameter;
 import org.mql.java.app.models.UMLPropertyMember;
 import org.mql.java.app.models.UMLRelationModel;
 import org.w3c.dom.Document;
@@ -28,6 +31,8 @@ public class UmlXmlMapper {
 			ProjectModel project = (ProjectModel) model;
 			XMLNode projectNode = new XMLNode("project", document);
 			projectNode.setAttribute("name", project.getName());
+			projectNode.setAttribute("xsi:noNamespaceSchemaLocation", "../resources/schema.xsd");
+			projectNode.setAttribute("xmlns:xsi", XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
 			
 			if (!project.getPackages().isEmpty()) {
 				XMLNode packagesNode = new XMLNode("packages", document);
@@ -149,9 +154,11 @@ public class UmlXmlMapper {
 					
 					if (!umlOperation.getParameters().isEmpty()) {
 						XMLNode parametersNode = new XMLNode("parameters", document);
-						for (String parameter : umlOperation.getParameters()) {
+						
+							for (UMLParameter parameter : umlOperation.getParameters()) {
 							XMLNode parameterNode = new XMLNode("parameter", document);
-							parameterNode.setAttribute("type", parameter);
+							
+							parameterNode.setAttribute("type", parameter.getSimpleType());
 							parametersNode.appendChild(parameterNode);
 						}
 						memberNode.appendChild(parametersNode);					

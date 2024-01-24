@@ -5,22 +5,22 @@ import org.mql.java.app.enums.RelationType;
 public class UMLRelationModel {
 
 	
-	private UMLClassifier child;
-	private UMLClassifier parent;
+	private UMLModel child;
+	private UMLModel parent;
 	private RelationType type;
 
-	public UMLRelationModel(UMLClassifier child, UMLClassifier parent, RelationType type) {
+	public UMLRelationModel(UMLModel child, UMLModel parent, RelationType type) {
 		super();
 		this.child = child;
 		this.parent = parent;
 		this.type = type;
 	}
 
-	public UMLClassifier getChild() {
+	public UMLModel  getChild() {
 		return child;
 	}
 
-	public UMLClassifier getParent() {
+	public UMLModel  getParent() {
 		return parent;
 	}
 

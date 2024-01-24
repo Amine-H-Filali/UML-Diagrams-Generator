@@ -1,5 +1,6 @@
 package org.mql.java.app.ui.umldiagram;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
@@ -18,7 +19,7 @@ import org.mql.java.app.models.UMLClassifier;
 import org.mql.java.app.models.UMLPackageModel;
 import org.mql.java.app.ui.app.BoxPanel;
 import org.mql.java.app.ui.app.Label;
-import org.mql.java.app.ui.app.WrapLayout;
+
 import org.mql.java.app.utils.Utils;
 
 public class JUMLPackage extends BoxPanel implements Movable {
@@ -27,8 +28,7 @@ public class JUMLPackage extends BoxPanel implements Movable {
 	private UMLPackageModel umlPackage;
 	private List<JUMLClass> jumlClassifiers;
 
-	private JPanel titlePanel;
-	private JPanel classifiersPanel;
+
 
 	private int eX, eY;
 
@@ -90,9 +90,9 @@ public class JUMLPackage extends BoxPanel implements Movable {
 	}
 
 	private void drawClassifiers(int padding) {
-		classifiersPanel = new JPanel(null);
+		JPanel classifiersPanel = new JPanel(null);
 
-		classifiersPanel.setLayout(new WrapLayout(FlowLayout.LEFT, padding, padding));
+		classifiersPanel.setLayout(new FlowLayout(FlowLayout.LEFT, padding, padding));
 		classifiersPanel.setBorder(new LineBorder(Color.black, 1));
 		classifiersPanel.setBackground(Utils.rgbColor(255, 228, 196)); 
 
@@ -110,7 +110,7 @@ public class JUMLPackage extends BoxPanel implements Movable {
 	}
 
 	private void drawTitle(int padding) {
-		titlePanel = new JPanel();
+		JPanel titlePanel = new JPanel();
 		titlePanel.setOpaque(false);
 		titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		titlePanel.setSize(100, 100);
@@ -124,7 +124,7 @@ public class JUMLPackage extends BoxPanel implements Movable {
 
 		titlePanel.add(p);
 
-		add(titlePanel);
+		add(titlePanel, BorderLayout.NORTH);
 	}
 
 	public List<JUMLClass> getJumlClassifiers() {
