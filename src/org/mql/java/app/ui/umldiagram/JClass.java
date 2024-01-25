@@ -56,11 +56,11 @@ public class JClass extends JPanel implements Movable {
 		}
 
 		if (classifier instanceof UMLInterface) {
-			setBackground(new Color(184, 249, 168));
+			setBackground(new Color(173, 216, 230)); 
 		} else if (classifier instanceof UMLEnum) {
-			setBackground(new Color(209, 166, 253));
+			setBackground(new Color(255, 192, 203));
 		} else {
-			setBackground(Color.white);
+			setBackground(new Color(240, 240, 240));
 		}
 
 		setSize(getPreferredSize());

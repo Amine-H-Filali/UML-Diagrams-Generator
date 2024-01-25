@@ -6,7 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import org.mql.java.app.utils.Utils;
+
 
 
 
@@ -51,6 +51,13 @@ public class BoxPanel extends JPanel {
 	}
 
 	public void setBackground(Color color, int opacity) {
-		setBackground(Utils.rgbaColor(color, 50));
+		setBackgroundWithOpacity(Color.white, 50);
+	}
+	
+	
+	public void setBackgroundWithOpacity(Color color, int opacity) {
+	    int alpha = (int) (opacity * 2.55); // Convert opacity (0-100) to alpha (0-255)
+	    Color colorWithOpacity = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+	    setBackground(colorWithOpacity);
 	}
 }

@@ -20,7 +20,7 @@ import org.mql.java.app.models.UMLPackageModel;
 
 import org.mql.java.app.ui.app.Label;
 
-import org.mql.java.app.utils.Utils;
+
 
 public class JPackage extends JPanel implements Movable {
 	private static final long serialVersionUID = 1L;
@@ -95,7 +95,7 @@ public class JPackage extends JPanel implements Movable {
 
 		classifiersPanel.setLayout(new FlowLayout(FlowLayout.LEFT, padding, padding));
 		classifiersPanel.setBorder(new LineBorder(Color.black, 1));
-		classifiersPanel.setBackground(Utils.rgbColor(255, 228, 196)); 
+		classifiersPanel.setBackground(new Color(255, 228, 196)); 
 
 
 		for (UMLClassifier classifier : umlPackage.getClassifiers()) {
@@ -120,7 +120,7 @@ public class JPackage extends JPanel implements Movable {
 		JPanel p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.LEFT, padding, padding));
 		p.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 1, Color.black));
-		p.setBackground(Utils.rgbColor(255, 228, 196));
+		p.setBackground(new Color(255, 228, 196));
 		p.add(titleLabel);
 
 		titlePanel.add(p);

@@ -12,6 +12,7 @@ import org.mql.java.app.models.UMLRelationModel;
 
 public class JProject extends JPanel  {
 	private static final long serialVersionUID = 1L;
+	
 
 	private ProjectModel project;
 	private List<JPackage> jumlPackages;

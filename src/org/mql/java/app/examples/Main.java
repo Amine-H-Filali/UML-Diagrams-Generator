@@ -3,6 +3,7 @@ package org.mql.java.app.examples;
 import java.awt.Dimension;
 
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import javax.swing.JScrollPane;
@@ -79,8 +80,31 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(new Dimension(800, 580));
+		setWindowTitleAndIcon();
 		setVisible(true);
 	}
+	
+	
+	private void setWindowTitleAndIcon() {
+        setTitle("UML DIAGRAM GENERATOR");
+
+       
+        ImageIcon icon = createImageIcon("resources\\UML.png");
+        if (icon != null) {
+            setIconImage(icon.getImage());
+        }
+    }
+
+    private ImageIcon createImageIcon(String path) {
+        
+       
+        if (path != null) {
+            return new ImageIcon(path);
+        } else {
+            System.err.println("Could not find icon file: " + path);
+            return null;
+        }
+    }
 
 	public static void main(String[] args) {
 		new Main();
