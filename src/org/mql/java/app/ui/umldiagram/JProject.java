@@ -14,8 +14,8 @@ public class JProject extends JPanel  {
 	private static final long serialVersionUID = 1L;
 
 	private ProjectModel project;
-	private List<JUMLPackage> jumlPackages;
-	private List<JUMLRelation> jumlRelations;
+	private List<JPackage> jumlPackages;
+	private List<JRelation> jumlRelations;
 
 	public JProject(ProjectModel project) {
 		this.project = project;
@@ -30,12 +30,12 @@ public class JProject extends JPanel  {
 	
 	
 	private void drawPackages() {
-		JUMLPackage jumlPackage;
+		JPackage jumlPackage;
 
 		for (UMLPackageModel umlPackage : project.getPackages()) {
 			int x = 1, y = 1;
 
-			jumlPackage = new JUMLPackage(umlPackage);
+			jumlPackage = new JPackage(umlPackage);
 			
 			jumlPackage.setLocation(x, y);
 			add(jumlPackage);
@@ -45,19 +45,19 @@ public class JProject extends JPanel  {
 	}
 
 	private void drawRelations() {
-		JUMLRelation jumlRelation;
+		JRelation jumlRelation;
 		for (UMLRelationModel umlRelation : project.getRelations()) {
-			jumlRelation = new JUMLRelation(umlRelation, this);
+			jumlRelation = new JRelation(umlRelation, this);
 
 			add(jumlRelation);
 			jumlRelations.add(jumlRelation);
 		}
 	}
 
-	public JUMLClass getJumlClassifier(UMLClassifier umlClassifier) {
-		for (JUMLPackage jumlPackage : jumlPackages) {
+	public JClass getJumlClassifier(UMLClassifier umlClassifier) {
+		for (JPackage jumlPackage : jumlPackages) {
 			
-			for (JUMLClass jumlClassifier : jumlPackage.getJumlClassifiers()) {
+			for (JClass jumlClassifier : jumlPackage.getJumlClassifiers()) {
 				if (jumlClassifier.getClassifier().getName().equals(umlClassifier.getName())) {
 					return jumlClassifier;
 				}

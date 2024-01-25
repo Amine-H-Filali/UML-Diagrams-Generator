@@ -2,7 +2,7 @@ package org.mql.java.app.ui.umldiagram;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,7 +20,7 @@ import org.mql.java.app.models.UMLMethod;
 import org.mql.java.app.ui.app.BoxPanel;
 import org.mql.java.app.ui.app.Label;
 
-public class JUMLClass extends JPanel implements Movable {
+public class JClass extends JPanel implements Movable {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
@@ -34,11 +34,11 @@ public class JUMLClass extends JPanel implements Movable {
 
 	private int eX, eY;
 
-	public JUMLClass(UMLClassifier classifier) {
+	public JClass(UMLClassifier classifier) {
 		this(classifier, Color.BLACK);
 	}
 
-	public JUMLClass(UMLClassifier classifier, Color color) {
+	public JClass(UMLClassifier classifier, Color color) {
 
 		this.classifier = classifier;
 		this.color = color;
@@ -84,12 +84,12 @@ public class JUMLClass extends JPanel implements Movable {
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			setCursor(new Cursor(Cursor.MOVE_CURSOR));
+			
 		}
 
 		@Override
@@ -111,7 +111,7 @@ public class JUMLClass extends JPanel implements Movable {
 
 	private void drawTitlePanel() {
 		titlePanel = new TitlePanel();
-		add(titlePanel);
+		add(titlePanel, BorderLayout.NORTH);
 	}
 
 	private void drawAttributesPanel() {
@@ -120,7 +120,7 @@ public class JUMLClass extends JPanel implements Movable {
 
 		for (UMLEntity umlMember : classifier.getUmlEntities()) {
 			if (umlMember instanceof UMLField) {
-				attributesPanel.add(new JUMLEntity(umlMember));
+				attributesPanel.add(new JEntity(umlMember));
 			}
 		}
 
@@ -132,7 +132,7 @@ public class JUMLClass extends JPanel implements Movable {
 
 		for (UMLEntity umlMember : classifier.getUmlEntities()) {
 			if (umlMember instanceof UMLMethod) {
-				operationsPanel.add(new JUMLEntity(umlMember));
+				operationsPanel.add(new JEntity(umlMember));
 			}
 		}
 
@@ -144,7 +144,7 @@ public class JUMLClass extends JPanel implements Movable {
 
 		for (UMLEntity umlMember : classifier.getUmlEntities()) {
 			if (umlMember instanceof UMLConstant) {
-				attributesPanel.add(new JUMLEntity(umlMember));
+				attributesPanel.add(new JEntity(umlMember));
 			}
 		}
 
@@ -174,6 +174,7 @@ public class JUMLClass extends JPanel implements Movable {
 		private static final long serialVersionUID = 1L;
 
 		public SectionPanel() {
+			
 			setOpaque(false);
 		}
 	}

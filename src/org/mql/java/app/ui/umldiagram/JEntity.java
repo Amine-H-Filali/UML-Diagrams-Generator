@@ -10,14 +10,14 @@ import org.mql.java.app.models.UMLMethod;
 import org.mql.java.app.models.UMLPropertyMember;
 import org.mql.java.app.ui.app.Label;
 
-public class JUMLEntity extends JPanel  {
+public class JEntity extends JPanel  {
 	private static final long serialVersionUID = 1L;
 
 	protected UMLEntity umlEntity;
 
 	protected Label signatureLabel;
 
-	public JUMLEntity(UMLEntity umlCharacteristic) {
+	public JEntity(UMLEntity umlCharacteristic) {
 		this.umlEntity = umlCharacteristic;
 
 		setOpaque(false);

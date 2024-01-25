@@ -77,7 +77,8 @@ public class Main extends JFrame {
 	
 	private void config() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setLocationRelativeTo(null);
+		setSize(new Dimension(800, 580));
 		setVisible(true);
 	}
 

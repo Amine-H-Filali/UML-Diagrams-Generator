@@ -2,7 +2,7 @@ package org.mql.java.app.ui.umldiagram;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
+
 import java.awt.FlowLayout;
 
 import java.awt.event.MouseEvent;
@@ -17,16 +17,16 @@ import javax.swing.border.LineBorder;
 
 import org.mql.java.app.models.UMLClassifier;
 import org.mql.java.app.models.UMLPackageModel;
-import org.mql.java.app.ui.app.BoxPanel;
+
 import org.mql.java.app.ui.app.Label;
 
 import org.mql.java.app.utils.Utils;
 
-public class JUMLPackage extends BoxPanel implements Movable {
+public class JPackage extends JPanel implements Movable {
 	private static final long serialVersionUID = 1L;
 
 	private UMLPackageModel umlPackage;
-	private List<JUMLClass> jumlClassifiers;
+	private List<JClass> jumlClassifiers;
 
 
 
@@ -48,12 +48,12 @@ public class JUMLPackage extends BoxPanel implements Movable {
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			setCursor(new Cursor(Cursor.MOVE_CURSOR));
+			
 		}
 
 		@Override
@@ -74,9 +74,10 @@ public class JUMLPackage extends BoxPanel implements Movable {
 		}
 	}
 
-	public JUMLPackage(UMLPackageModel umlPackage) {
+	public JPackage(UMLPackageModel umlPackage) {
 		this.umlPackage = umlPackage;
 		jumlClassifiers = new Vector<>();
+		setLayout(new BorderLayout());
 
 		setOpaque(false);
 		drawTitle(4);
@@ -98,7 +99,7 @@ public class JUMLPackage extends BoxPanel implements Movable {
 
 
 		for (UMLClassifier classifier : umlPackage.getClassifiers()) {
-			JUMLClass jumlClassifier = new JUMLClass(classifier);
+			JClass jumlClassifier = new JClass(classifier);
 			jumlClassifier.setLocation(10, 10);
 			classifiersPanel.add(jumlClassifier);
 
@@ -127,7 +128,7 @@ public class JUMLPackage extends BoxPanel implements Movable {
 		add(titlePanel, BorderLayout.NORTH);
 	}
 
-	public List<JUMLClass> getJumlClassifiers() {
+	public List<JClass> getJumlClassifiers() {
 		return jumlClassifiers;
 	}
 

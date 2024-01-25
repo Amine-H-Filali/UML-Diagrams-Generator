@@ -109,6 +109,7 @@ public class ProjectXmlParser implements Parser {
 								umlClassifier.addUMLEntity(new UMLField(attributeName, Visibility.valueOf(attributeVisibility), attributeType, isAttributeStatic, isAttributeFinal));
 							}
 						}
+						
 
 						if (classifierNode.getChild("operations") != null) {
 							for (XMLNode operationNode : classifierNode.getChild("operations").getChildren()) {

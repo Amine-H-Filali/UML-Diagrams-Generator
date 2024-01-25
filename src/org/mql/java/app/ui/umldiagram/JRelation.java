@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import org.mql.java.app.models.UMLRelationModel;
 
-public class JUMLRelation extends JPanel implements Movable {
+public class JRelation extends JPanel implements Movable {
 	private static final long serialVersionUID = 1L;
 
 	private UMLRelationModel umlRelation;
@@ -17,7 +17,7 @@ public class JUMLRelation extends JPanel implements Movable {
 
 	private Point p1, p2;
 
-	public JUMLRelation(UMLRelationModel umlRelation, JProject jProject) {
+	public JRelation(UMLRelationModel umlRelation, JProject jProject) {
 		this.umlRelation = umlRelation;
 		this.jProject = jProject;
 
@@ -28,8 +28,8 @@ public class JUMLRelation extends JPanel implements Movable {
 	}
 
 	private void drawRelation() {
-		JUMLClass childJumlClassifier = jProject.getJumlClassifier(umlRelation.getChild());
-		JUMLClass parentJumlClassifier = jProject.getJumlClassifier(umlRelation.getParent());
+		JClass childJumlClassifier = jProject.getJumlClassifier(umlRelation.getChild());
+		JClass parentJumlClassifier = jProject.getJumlClassifier(umlRelation.getParent());
 
 		p1 = new Point(childJumlClassifier.getX(), childJumlClassifier.getY());
 		p2 = new Point(parentJumlClassifier.getX(), parentJumlClassifier.getY());
